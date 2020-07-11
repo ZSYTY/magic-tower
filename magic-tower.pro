@@ -17,12 +17,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     magicmap.cpp \
+    model/data/gamemap.cpp \
+    model/gamemodel.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    model/data/player.cpp \
+    viewModel/gameviewmodel.cpp
 
 HEADERS += \
     magicmap.h \
-    mainwindow.h
+    model/data/common.h \
+    model/data/gamemap.h \
+    model/gamemodel.h \
+    mainwindow.h \
+    model/data/player.h \
+    viewModel/gameviewmodel.h
 
 FORMS += \
     magicmap.ui \
