@@ -37,7 +37,7 @@ Direction Player::getDirection() const {
     return m_direction;
 }
 
-QVector<int> &Player::getItems() {
+QVector<int>& Player::getItems() {
     return m_items;
 }
 
