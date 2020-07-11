@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include <QObject>
+#include <QVector>
 
 class Player : public QObject
 {
