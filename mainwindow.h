@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "magicmap.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,5 +18,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    void InitPlayerWidget();
+    void InitKeysWidget();
+    void InitLevelWidget();
+    void InitOptionsWidget();
 };
 #endif // MAINWINDOW_H

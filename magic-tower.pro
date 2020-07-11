@@ -16,13 +16,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    magicmap.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    magicmap.h \
     mainwindow.h
 
 FORMS += \
+    magicmap.ui \
     mainwindow.ui
 
 TRANSLATIONS += \
@@ -32,3 +35,9 @@ TRANSLATIONS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    assets/Images/878.jpg
+
+RESOURCES += \
+    magic-tower.qrc
