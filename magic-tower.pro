@@ -16,26 +16,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    magicmap.cpp \
+    view/magicmap.cpp \
     model/data/gamemap.cpp \
     model/gamemodel.cpp \
     main.cpp \
-    mainwindow.cpp \
+    view/mainwindow.cpp \
     model/data/player.cpp \
     viewModel/gameviewmodel.cpp
 
 HEADERS += \
-    magicmap.h \
+    view/magicmap.h \
     model/data/common.h \
     model/data/gamemap.h \
     model/gamemodel.h \
-    mainwindow.h \
+    view/mainwindow.h \
     model/data/player.h \
     viewModel/gameviewmodel.h
 
 FORMS += \
-    magicmap.ui \
-    mainwindow.ui
+    view/magicmap.ui \
+    view/mainwindow.ui
 
 TRANSLATIONS += \
     magic-tower_zh_CN.ts
@@ -50,3 +50,5 @@ DISTFILES += \
 
 RESOURCES += \
     magic-tower.qrc
+
+QMAKE_INCDIR += view
