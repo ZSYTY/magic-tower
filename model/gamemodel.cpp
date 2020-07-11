@@ -5,6 +5,6 @@ GameModel::GameModel(QObject *parent) : QObject(parent)
 
 }
 
-void GameModel::playerMove(Direction direction) {
+void GameModel::playerMove(MagicTower::Direction direction) {
     qDebug("playerMove: %d\n", direction);
 }

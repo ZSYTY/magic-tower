@@ -13,7 +13,7 @@ public:
     GameModel(const GameModel&) = delete;
     GameModel& operator=(const GameModel&) = delete;
 
-    void playerMove(Direction direction);
+    void playerMove(MagicTower::Direction direction);
 
 private:
     GameMap     map;

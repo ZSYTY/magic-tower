@@ -6,8 +6,8 @@ GameViewModel::GameViewModel(QObject *parent) : QObject(parent)
 }
 
 
-std::function<void(Direction)> GameViewModel::getPlayerMoveCommand() {
-    return [this] (Direction dir) {
+std::function<void(MagicTower::Direction)> GameViewModel::getPlayerMoveCommand() {
+    return [this] (MagicTower::Direction dir) {
         return this->m_gameModel->playerMove(dir);
     };
 }

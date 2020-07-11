@@ -25,8 +25,8 @@ SOURCES += \
     viewModel/gameviewmodel.cpp
 
 HEADERS += \
+    common/common.h \
     view/magicmap.h \
-    model/data/common.h \
     model/data/gamemap.h \
     model/gamemodel.h \
     view/mainwindow.h \

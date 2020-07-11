@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "common.h"
+#include "common/common.h"
 #include <QObject>
 #include <QVector>
 
@@ -18,7 +18,7 @@ public:
     int getGold() const;
     int getExp() const;
     QPair<int, int> getPosition() const;
-    Direction getDirection() const;
+    MagicTower::Direction getDirection() const;
     QVector<int>& getItems();
     /* Setters */
     void setHealth(int newValue);
@@ -27,7 +27,7 @@ public:
     void setGold(int newValue);
     void setExp(int newValue);
     void setPosition(QPair<int, int> newValue);
-    void setDirection(Direction newValue);
+    void setDirection(MagicTower::Direction newValue);
 
 private:
     int m_health;
@@ -36,7 +36,7 @@ private:
     int m_gold;
     int m_exp;
     QPair<int, int> m_position;
-    Direction m_direction;
+    MagicTower::Direction m_direction;
     QVector<int> m_items;
 
 signals:

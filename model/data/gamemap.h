@@ -1,6 +1,7 @@
 #ifndef GAMEMAP_H
 #define GAMEMAP_H
 
+#include "common/common.h"
 #include <QObject>
 
 class GameMap : public QObject
@@ -11,10 +12,7 @@ public:
     /* TODO */
 
 private:
-    static const int MAP_WIDTH = 11;
-    static const int MAP_HEIGHT = 11;
-    static const int MAP_LAYER = 24;
-    int m_data[MAP_LAYER][MAP_HEIGHT][MAP_WIDTH];
+    int m_data[MagicTower::MAP_LAYER][MagicTower::MAP_HEIGHT][MagicTower::MAP_WIDTH];
 
 signals:
 

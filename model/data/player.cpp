@@ -33,7 +33,7 @@ QPair<int, int> Player::getPosition() const {
     return m_position;
 }
 
-Direction Player::getDirection() const {
+MagicTower::Direction Player::getDirection() const {
     return m_direction;
 }
 
@@ -65,6 +65,6 @@ void Player::setPosition(QPair<int, int> newValue) {
     m_position = newValue;
 }
 
-void Player::setDirection(Direction newValue) {
+void Player::setDirection(MagicTower::Direction newValue) {
     m_direction = newValue;
 }
