@@ -1,6 +1,8 @@
 #ifndef GAMEVIEWMODEL_H
 #define GAMEVIEWMODEL_H
 
+#include <memory>
+#include <functional>
 #include <QObject>
 #include "model/gamemodel.h"
 
