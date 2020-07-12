@@ -30,14 +30,14 @@ public:
     void setDirection(MagicTower::Direction newValue);
 
 private:
-    int m_health;
-    int m_attack;
-    int m_defence;
-    int m_gold;
-    int m_exp;
-    QPair<int, int> m_position;
-    MagicTower::Direction m_direction;
-    QVector<int> m_items;
+    int                     m_health;
+    int                     m_attack;
+    int                     m_defence;
+    int                     m_gold;
+    int                     m_exp;
+    QPair<int, int>         m_position;
+    MagicTower::Direction   m_direction;
+    QVector<int>            m_items;
 
 signals:
 
