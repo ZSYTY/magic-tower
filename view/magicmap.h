@@ -6,6 +6,7 @@
 #include <QHash>
 #include <QPainter>
 #include <QKeyEvent>
+#include <memory>
 #include <functional>
 #include "common/common.h"
 #include "common/player.h"
