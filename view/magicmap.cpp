@@ -12,6 +12,7 @@ MagicMap::~MagicMap()
 {
     delete ui;
 }
+
 void MagicMap::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);

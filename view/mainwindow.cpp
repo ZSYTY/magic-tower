@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     InitKeysWidget();
     InitLevelWidget();
     InitOptionsWidget();
+    setFocusPolicy(Qt::ClickFocus);
 }
 
 MainWindow::~MainWindow()
@@ -60,4 +61,26 @@ void MainWindow::InitOptionsWidget()
     ui->optionsDataWidget->addItem("ctrl A 读取    ctrl R 重新开始");
     ui->optionsDataWidget->setSelectionMode(QAbstractItemView::NoSelection);
     ui->optionsDataWidget->setFocusPolicy(Qt::NoFocus);
+}
+void MainWindow::keyPressEvent(QKeyEvent *event) {
+    switch (event->key()) {
+    case Qt::Key_Up:
+        m_playerMoveCommand(MagicTower::UP);
+        break;
+    case Qt::Key_Down:
+        m_playerMoveCommand(MagicTower::DOWN);
+        break;
+    case Qt::Key_Left:
+        m_playerMoveCommand(MagicTower::LEFT);
+        break;
+    case Qt::Key_Right:
+        m_playerMoveCommand(MagicTower::RIGHT);
+        break;
+    default:
+        break;
+    }
+}
+
+void MainWindow::attachPlayerMoveCommand(std::function<void(MagicTower::Direction)> playerMoveCommand) {
+    m_playerMoveCommand = playerMoveCommand;
 }

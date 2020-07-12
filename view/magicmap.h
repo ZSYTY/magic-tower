@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QPainter>
+#include <QKeyEvent>
+#include <functional>
+#include "common/common.h"
 
 namespace Ui {
 class MagicMap;
@@ -17,7 +20,7 @@ public:
     ~MagicMap();
 
 protected:
-    void paintEvent(QPaintEvent *);
+    void paintEvent(QPaintEvent *) override;
 
 private:
     Ui::MagicMap *ui;

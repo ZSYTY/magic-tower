@@ -15,6 +15,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void attachPlayerMoveCommand(std::function<void(MagicTower::Direction)> playerMoveCommand);
+    void keyPressEvent(QKeyEvent *event) override;
 
 private:
     Ui::MainWindow *ui;
@@ -22,5 +24,6 @@ private:
     void InitKeysWidget();
     void InitLevelWidget();
     void InitOptionsWidget();
+    std::function<void(MagicTower::Direction)> m_playerMoveCommand;
 };
 #endif // MAINWINDOW_H
