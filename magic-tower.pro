@@ -16,14 +16,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    app/app.cpp \
+    app/gamepart.cpp \
+    view/magicmap.cpp \
+    common/gamemap.cpp \
+    model/gamemodel.cpp \
     main.cpp \
-    mainwindow.cpp
+    view/mainwindow.cpp \
+    common/player.cpp \
+    viewModel/gameviewmodel.cpp
 
 HEADERS += \
-    mainwindow.h
+    app/app.h \
+    app/gamepart.h \
+    common/common.h \
+    view/magicmap.h \
+    common/gamemap.h \
+    model/gamemodel.h \
+    view/mainwindow.h \
+    common/player.h \
+    viewModel/gameviewmodel.h
 
 FORMS += \
-    mainwindow.ui
+    view/magicmap.ui \
+    view/mainwindow.ui
 
 TRANSLATIONS += \
     magic-tower_zh_CN.ts
@@ -32,3 +48,11 @@ TRANSLATIONS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    assets/Images/878.jpg
+
+RESOURCES += \
+    magic-tower.qrc
+
+QMAKE_INCDIR += view

@@ -1,11 +1,8 @@
-#include "mainwindow.h"
-
-#include <QApplication>
+#include "app/app.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+    std::unique_ptr<App> app(new App(argc, argv));
+    app->init();
+    return app->run();
 }
