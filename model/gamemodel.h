@@ -2,6 +2,7 @@
 #define GAMEMODEL_H
 
 #include <QObject>
+#include <memory>
 #include "common/player.h"
 #include "common/gamemap.h"
 
