@@ -24,7 +24,7 @@ void GameModel::playerMove(MagicTower::Direction direction) {
         newPosition.first++;
         break;
     }
-    if (/* TODO */ newPosition.first >= 0 and newPosition.first < MagicTower::MAP_HEIGHT and newPosition.second >= 0 and newPosition.second < MagicTower::MAP_WIDTH) {
+    if (/* TODO */ newPosition.first >= 0 && newPosition.first < MagicTower::MAP_HEIGHT && newPosition.second >= 0 && newPosition.second < MagicTower::MAP_WIDTH) {
         player->setPosition(newPosition);
     }
 }
