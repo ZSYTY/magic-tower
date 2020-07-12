@@ -19,3 +19,7 @@ void GameViewModel::attachModel(const std::shared_ptr<GameModel>& gameModel) noe
 std::shared_ptr<GameModel> GameViewModel::detachModel() noexcept {
     return std::shared_ptr<GameModel>(std::move(m_gameModel));
 }
+
+std::shared_ptr<Player> GameViewModel::getPlayer() const {
+    return m_gameModel->getPlayer();
+}

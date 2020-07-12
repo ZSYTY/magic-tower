@@ -84,3 +84,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 void MainWindow::attachPlayerMoveCommand(std::function<void(MagicTower::Direction)> playerMoveCommand) {
     m_playerMoveCommand = playerMoveCommand;
 }
+
+MagicMap* MainWindow::getMapWidget() const {
+    return ui->mapWidget;
+}

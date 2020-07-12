@@ -79,7 +79,6 @@ void Player::setExp(int newValue) {
 void Player::setPosition(QPair<int, int> newValue) {
     if (m_position != newValue) {
         m_position = newValue;
-        qDebug("position: (%d, %d)", newValue.first, newValue.second);
         emit positionChanged(newValue);
     }
 }

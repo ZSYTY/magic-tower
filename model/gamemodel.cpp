@@ -2,13 +2,14 @@
 
 GameModel::GameModel(QObject *parent) : QObject(parent)
 {
-
+    player  = std::make_shared<Player>();
+    map     = std::make_shared<GameMap>();
 }
 
 void GameModel::playerMove(MagicTower::Direction direction) {
     qDebug("playerMove: %d\n", direction);
-    player.setDirection(direction);
-    auto position = player.getPosition(), newPosition = position;
+    player->setDirection(direction);
+    auto position = player->getPosition(), newPosition = position;
     switch (direction) {
     case MagicTower::LEFT:
         newPosition.second--;
@@ -24,6 +25,10 @@ void GameModel::playerMove(MagicTower::Direction direction) {
         break;
     }
     if (/* TODO */ newPosition.first >= 0 and newPosition.first < MagicTower::MAP_HEIGHT and newPosition.second >= 0 and newPosition.second < MagicTower::MAP_WIDTH) {
-        player.setPosition(newPosition);
+        player->setPosition(newPosition);
     }
+}
+
+std::shared_ptr<Player> GameModel::getPlayer() const {
+    return player;
 }
