@@ -2,8 +2,9 @@
 #define GAMEMODEL_H
 
 #include <QObject>
-#include "data/player.h"
-#include "data/gamemap.h"
+#include <memory>
+#include "common/player.h"
+#include "common/gamemap.h"
 
 class GameModel : public QObject
 {
@@ -14,10 +15,11 @@ public:
     GameModel& operator=(const GameModel&) = delete;
 
     void playerMove(MagicTower::Direction direction);
+    std::shared_ptr<Player> getPlayer() const;
 
 private:
-    GameMap     map;
-    Player      player;
+    std::shared_ptr<GameMap>    map;
+    std::shared_ptr<Player>     player;
 
 signals:
 

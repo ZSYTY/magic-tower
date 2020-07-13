@@ -18,6 +18,7 @@ public:
 
     void attachModel(const std::shared_ptr<GameModel>& gameModel) noexcept;
     std::shared_ptr<GameModel> detachModel() noexcept;
+    std::shared_ptr<Player> getPlayer() const;
 
 private:
     std::shared_ptr<GameModel> m_gameModel;

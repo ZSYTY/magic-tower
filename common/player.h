@@ -19,7 +19,7 @@ public:
     int getExp() const;
     QPair<int, int> getPosition() const;
     MagicTower::Direction getDirection() const;
-    QVector<int>& getItems();
+    QVector<int>& getItems(); /* Fixme: no signal emit */
     /* Setters */
     void setHealth(int newValue);
     void setAttack(int newValue);
@@ -40,7 +40,13 @@ private:
     QVector<int>            m_items;
 
 signals:
-
+    void healthChanged(int newValue);
+    void attackChanged(int newValue);
+    void defenceChanged(int newValue);
+    void goldChanged(int newValue);
+    void expChanged(int newValue);
+    void positionChanged(QPair<int, int> newValue);
+    void directionChanged(MagicTower::Direction newValue);
 };
 
 #endif // PLAYER_H

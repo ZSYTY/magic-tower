@@ -25,8 +25,8 @@ border-right:1</string>
      <rect>
       <x>340</x>
       <y>60</y>
-      <width>620</width>
-      <height>620</height>
+      <width>660</width>
+      <height>660</height>
      </rect>
     </property>
     <property name="font">

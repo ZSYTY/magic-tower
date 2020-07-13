@@ -19,11 +19,11 @@ SOURCES += \
     app/app.cpp \
     app/gamepart.cpp \
     view/magicmap.cpp \
-    model/data/gamemap.cpp \
+    common/gamemap.cpp \
     model/gamemodel.cpp \
     main.cpp \
     view/mainwindow.cpp \
-    model/data/player.cpp \
+    common/player.cpp \
     viewModel/gameviewmodel.cpp
 
 HEADERS += \
@@ -31,10 +31,10 @@ HEADERS += \
     app/gamepart.h \
     common/common.h \
     view/magicmap.h \
-    model/data/gamemap.h \
+    common/gamemap.h \
     model/gamemodel.h \
     view/mainwindow.h \
-    model/data/player.h \
+    common/player.h \
     viewModel/gameviewmodel.h
 
 FORMS += \

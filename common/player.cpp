@@ -42,29 +42,50 @@ QVector<int>& Player::getItems() {
 }
 
 void Player::setHealth(int newValue) {
-    m_health = newValue;
+    if (m_health != newValue) {
+        m_health = newValue;
+        emit healthChanged(newValue);
+    }
 }
 
 void Player::setAttack(int newValue) {
-    m_attack = newValue;
+    if (m_attack != newValue) {
+        m_attack = newValue;
+        emit attackChanged(newValue);
+    }
 }
 
 void Player::setDefence(int newValue) {
-    m_defence = newValue;
+    if (m_defence != newValue) {
+        m_defence = newValue;
+        emit defenceChanged(newValue);
+    }
 }
 
 void Player::setGold(int newValue) {
-    m_gold = newValue;
+    if (m_gold != newValue) {
+        m_gold = newValue;
+        emit goldChanged(newValue);
+    }
 }
 
 void Player::setExp(int newValue) {
-    m_exp = newValue;
+    if (m_exp != newValue) {
+        m_exp = newValue;
+        emit expChanged(newValue);
+    }
 }
 
 void Player::setPosition(QPair<int, int> newValue) {
-    m_position = newValue;
+    if (m_position != newValue) {
+        m_position = newValue;
+        emit positionChanged(newValue);
+    }
 }
 
 void Player::setDirection(MagicTower::Direction newValue) {
-    m_direction = newValue;
+    if (m_direction != newValue) {
+        m_direction = newValue;
+        emit directionChanged(newValue);
+    }
 }

@@ -16,6 +16,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void attachPlayerMoveCommand(std::function<void(MagicTower::Direction)> playerMoveCommand);
+    void keyPressEvent(QKeyEvent *event) override;
+    MagicMap* getMapWidget() const;
 
     std::shared_ptr<QVector<int>> getPtrToPlayerData();
     std::shared_ptr<QVector<int>> getPtrToKeysData();
@@ -27,6 +30,7 @@ private:
     void InitKeysWidget();
     void InitLevelWidget();
     void InitOptionsWidget();
+    std::function<void(MagicTower::Direction)> m_playerMoveCommand;
 
     std::shared_ptr<QVector<int>> ptrToPlayerData;
     std::shared_ptr<QVector<int>> ptrToKeysData;
