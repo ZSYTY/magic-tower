@@ -23,10 +23,10 @@ border-right:1</string>
    <widget class="MagicMap" name="mapWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>60</y>
-      <width>660</width>
-      <height>660</height>
+      <x>330</x>
+      <y>30</y>
+      <width>680</width>
+      <height>680</height>
      </rect>
     </property>
     <property name="font">
@@ -44,7 +44,8 @@ border-right:1</string>
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">border:3px solid rgb(204,102,0);</string>
+     <string notr="true">border:3px solid rgb(204,102,0);
+background-image:url(:/assets/Images/221.bmp);</string>
     </property>
    </widget>
    <widget class="QTableWidget" name="playerDataWidget">
@@ -77,15 +78,15 @@ text-align:center</string>
       <x>50</x>
       <y>370</y>
       <width>231</width>
-      <height>181</height>
+      <height>191</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Microsoft YaHei</family>
-      <pointsize>14</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <family>微软雅黑</family>
+      <pointsize>20</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
@@ -97,13 +98,14 @@ color:white;</string>
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>550</y>
+      <y>560</y>
       <width>231</width>
-      <height>61</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>微软雅黑</family>
       <pointsize>14</pointsize>
       <weight>75</weight>
       <bold>true</bold>
@@ -115,7 +117,7 @@ border-top:0;background-image:url(:/assets/Images/221.bmp);
 color:white;</string>
     </property>
    </widget>
-   <widget class="QListWidget" name="optionsDataWidget">
+   <widget class="QTableWidget" name="optionsDataWidget">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -126,7 +128,8 @@ color:white;</string>
     </property>
     <property name="font">
      <font>
-      <pointsize>8</pointsize>
+      <family>微软雅黑</family>
+      <pointsize>12</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>

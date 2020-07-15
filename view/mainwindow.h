@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "magicmap.h"
+#include "common/player.h"
 #include "memory"
 
 QT_BEGIN_NAMESPACE
@@ -17,12 +18,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void attachPlayerMoveCommand(std::function<void(MagicTower::Direction)> playerMoveCommand);
+    void attachPlayer(const std::shared_ptr<Player>& player);
     void keyPressEvent(QKeyEvent *event) override;
     MagicMap* getMapWidget() const;
 
-    std::shared_ptr<QVector<int>> getPtrToPlayerData();
-    std::shared_ptr<QVector<int>> getPtrToKeysData();
-    std::shared_ptr<int> getPtrToLevelData();
 
 private:
     Ui::MainWindow *ui;
@@ -31,9 +30,14 @@ private:
     void InitLevelWidget();
     void InitOptionsWidget();
     std::function<void(MagicTower::Direction)> m_playerMoveCommand;
+    std::shared_ptr<Player> m_player;
 
-    std::shared_ptr<QVector<int>> ptrToPlayerData;
-    std::shared_ptr<QVector<int>> ptrToKeysData;
-    std::shared_ptr<int> ptrToLevelData;
+public slots:
+    void updateHealth(int);
+    void updateAttack(int);
+    void updateDefence(int);
+    void updateGold(int);
+    void updateExp(int);
+
 };
 #endif // MAINWINDOW_H
