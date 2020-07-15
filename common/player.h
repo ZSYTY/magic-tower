@@ -17,15 +17,23 @@ public:
     int getDefence() const;
     int getGold() const;
     int getExp() const;
+    int getLevel() const;
+    int getLayer() const;
+    int getKeyCount(MagicTower::KeyType keyType) const;
+    bool getItemOwn(MagicTower::ItemType itemType) const;
     QPair<int, int> getPosition() const;
     MagicTower::Direction getDirection() const;
-    QVector<int>& getItems(); /* Fixme: no signal emit */
+
     /* Setters */
     void setHealth(int newValue);
     void setAttack(int newValue);
     void setDefence(int newValue);
     void setGold(int newValue);
     void setExp(int newValue);
+    void setLevel(int newValue);
+    void setLayer(int newValue);
+    void setKeyCount(MagicTower::KeyType keyType, int newValue);
+    void setItemOwn(MagicTower::ItemType itemType, bool newValue);
     void setPosition(QPair<int, int> newValue);
     void setDirection(MagicTower::Direction newValue);
 
@@ -35,9 +43,12 @@ private:
     int                     m_defence;
     int                     m_gold;
     int                     m_exp;
+    int                     m_level;
+    int                     m_layer;
+    int                     m_keyCount[MagicTower::KEY_TYPE_COUNT];
+    bool                    m_itemOwn[MagicTower::KEY_TYPE_COUNT];
     QPair<int, int>         m_position;
     MagicTower::Direction   m_direction;
-    QVector<int>            m_items;
 
 signals:
     void healthChanged(int newValue);
@@ -45,6 +56,10 @@ signals:
     void defenceChanged(int newValue);
     void goldChanged(int newValue);
     void expChanged(int newValue);
+    void levelChanged(int newValue);
+    void layerChanged(int newValue);
+    void keyCountChanged(MagicTower::KeyType keyType, int newValue);
+    void itemOwnChanged(MagicTower::ItemType itemType, bool newValue);
     void positionChanged(QPair<int, int> newValue);
     void directionChanged(MagicTower::Direction newValue);
 };
