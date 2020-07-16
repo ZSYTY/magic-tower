@@ -46,7 +46,7 @@ private:
     int                     m_level;
     int                     m_layer;
     int                     m_keyCount[MagicTower::KEY_TYPE_COUNT];
-    bool                    m_itemOwn[MagicTower::KEY_TYPE_COUNT];
+    bool                    m_itemOwn[MagicTower::ITEM_TYPE_COUNT];
     QPair<int, int>         m_position;
     MagicTower::Direction   m_direction;
 

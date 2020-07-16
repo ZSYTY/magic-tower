@@ -30,7 +30,7 @@ void MainWindow::InitPlayerWidget()
     label->setStyleSheet("border:0;padding-left:30");
     //ui->playerDataWidget->setItem(0,0,new QTableWidgetItem(playerImg,""));
     ui->playerDataWidget->setCellWidget(0,0,label);
-    ui->playerDataWidget->setItem(0,1,new QTableWidgetItem("  1  级"));
+    ui->playerDataWidget->setItem(0,1,new QTableWidgetItem("1   级"));
     ui->playerDataWidget->setItem(1,0,new QTableWidgetItem("生命"));
     ui->playerDataWidget->setItem(1,1,new QTableWidgetItem("100"));
     ui->playerDataWidget->setItem(2,0,new QTableWidgetItem("攻击"));
@@ -161,11 +161,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         m_playerMoveCommand(MagicTower::RIGHT);
         break;
     case Qt::Key_0:   //for test: 测试人物信息绑定是否成功，以及connect是否成功
+        m_player->setLevel(m_player->getLevel()+1);
         m_player->setHealth(m_player->getHealth()+1);
         m_player->setAttack(m_player->getAttack()+1);
         m_player->setDefence(m_player->getDefence()+1);
         m_player->setGold(m_player->getGold()+1);
         m_player->setExp(m_player->getExp()+1);
+        m_player->setLayer(m_player->getLayer()+1);
+        m_player->setKeyCount(MagicTower::RED_KEY,m_player->getKeyCount(MagicTower::RED_KEY)+1);
+        m_player->setKeyCount(MagicTower::BLUE_KEY,m_player->getKeyCount(MagicTower::BLUE_KEY)+1);
+        m_player->setKeyCount(MagicTower::YELLOW_KEY,m_player->getKeyCount(MagicTower::YELLOW_KEY)+1);
         break;
     default:
         break;
@@ -183,13 +188,28 @@ MagicMap* MainWindow::getMapWidget() const {
 void MainWindow::attachPlayer(const std::shared_ptr<Player> &player) {
 
     m_player = player;
+
+    QObject::connect(m_player.get(),SIGNAL(levelChanged(int)),this,SLOT(updateLevel(int)));
     QObject::connect(m_player.get(),SIGNAL(healthChanged(int)),this,SLOT(updateHealth(int)));
     QObject::connect(m_player.get(),SIGNAL(attackChanged(int)),this,SLOT(updateAttack(int)));
     QObject::connect(m_player.get(),SIGNAL(defenceChanged(int)),this,SLOT(updateDefence(int)));
     QObject::connect(m_player.get(),SIGNAL(goldChanged(int)),this,SLOT(updateGold(int)));
     QObject::connect(m_player.get(),SIGNAL(expChanged(int)),this,SLOT(updateExp(int)));
-
+    QObject::connect(m_player.get(),SIGNAL(layerChanged(int)),this,SLOT(updateLayer(int)));
+    QObject::connect(m_player.get(),SIGNAL(keyCountChanged(MagicTower::KeyType, int)), this, SLOT(updateKeys(MagicTower::KeyType, int)));
 }
+
+void MainWindow::updateLevel(int newValue)
+{
+    QString spaces="   ",newLevel=QString::number(newValue);
+    if(newValue/100)
+       spaces=" ";
+    else if(newValue/10)
+        spaces="  ";
+    QString text=newLevel+spaces+"级";
+    ui->playerDataWidget->setItem(0,1,new QTableWidgetItem(text));
+}
+
 void MainWindow::updateHealth(int newValue)
 {
     ui->playerDataWidget->setItem(1,1,new QTableWidgetItem(QString::number(newValue)));
@@ -235,3 +255,45 @@ void MainWindow::updateExp(int newValue)
     ui->playerDataWidget->item(5,1)->setFont(numFont);
 }
 
+void MainWindow::updateLayer(int newValue)
+{
+    if(newValue==0)
+    {
+        QListWidgetItem *item = ui->levelDataWidget->takeItem(0);
+        delete item;
+        ui->levelDataWidget->addItem("序   章");
+    }
+
+    else
+    {
+        QListWidgetItem *item = ui->levelDataWidget->takeItem(0);
+        delete item;
+        QString newLayer=QString::number(newValue);
+        QString text = "第 "+newLayer+" 层";
+        ui->levelDataWidget->addItem(text);
+    }
+    ui->levelDataWidget->item(0)->setTextAlignment(Qt::AlignCenter);
+    ui->levelDataWidget->item(0)->setSizeHint(QSize(50,50));
+}
+
+void MainWindow::updateKeys(MagicTower::KeyType keyType,int newValue)
+{
+    QFont numFont;
+    numFont.setItalic(true);
+    numFont.setPointSize(24);
+    QString newKeyNum=QString::number(newValue);
+    switch (keyType) {
+    case MagicTower::RED_KEY:
+            ui->keysDataWidget->setItem(0,1,new QTableWidgetItem(newKeyNum));
+            ui->keysDataWidget->item(0,1)->setFont(numFont);
+            break;
+        case MagicTower::BLUE_KEY:
+            ui->keysDataWidget->setItem(1,1,new QTableWidgetItem(newKeyNum));
+            ui->keysDataWidget->item(1,1)->setFont(numFont);
+            break;
+        case MagicTower::YELLOW_KEY:
+            ui->keysDataWidget->setItem(2,1,new QTableWidgetItem(newKeyNum));
+            ui->keysDataWidget->item(2,1)->setFont(numFont);
+        break;
+    }
+}

@@ -33,11 +33,13 @@ private:
     std::shared_ptr<Player> m_player;
 
 public slots:
+    void updateLevel(int);  //人物等级
     void updateHealth(int);
     void updateAttack(int);
     void updateDefence(int);
     void updateGold(int);
     void updateExp(int);
-
+    void updateLayer(int);  //楼层
+    void updateKeys(MagicTower::KeyType,int);
 };
 #endif // MAINWINDOW_H

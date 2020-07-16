@@ -36,7 +36,7 @@ void MagicMap::paintEvent(QPaintEvent *)
     {
         int m_level=0;
         if(m_player!=nullptr)
-            ;                       //wait common
+            m_level=m_player->getLayer();
         for(int i=0;i<11;i++)
             for(int j=0;j<11;j++)
             {
@@ -65,8 +65,11 @@ void MagicMap::paintEvent(QPaintEvent *)
     pen.setColor(QColor(204,102,0));
     pen.setWidth(5);
     painter.setPen(pen);
-    painter.drawRect(this->rect().x(),this->rect().y(),this->rect().width()-5,this->rect().height()-5);
-
+   // painter.drawRect(this->rect().x(),this->rect().y(),this->rect().width()-5,this->rect().height()-5);
+    painter.drawLine(0, 0, this->width() - 8, 0);
+    painter.drawLine(0, 0, 0, this->height() - 8);
+    painter.drawLine(this->width() - 8, 0, this->width() - 8, this->height() - 8);
+    painter.drawLine(0, this->height() - 8, this->width() - 8, this->height() - 8);
 }
 
 void MagicMap::attachPlayer(const std::shared_ptr<Player> &player)
@@ -81,6 +84,6 @@ void MagicMap::attachPlayer(const std::shared_ptr<Player> &player)
 void MagicMap::attachGameMap(const std::shared_ptr<GameMap>& gamemap)
 {
     m_gamemap=gamemap;
-
+    QObject::connect(m_gamemap.get(), &GameMap::dataChanged, this, static_cast<void (MagicMap::*)()>(&MagicMap::update), Qt::QueuedConnection);
     repaint();
 }
