@@ -3,6 +3,7 @@
 
 #include "common/common.h"
 #include <QObject>
+#include <QString>
 
 class GameMap : public QObject
 {
@@ -10,12 +11,14 @@ class GameMap : public QObject
 public:
     explicit GameMap(QObject *parent = nullptr);
     /* TODO */
+    QString getData(int l, int x, int y) const;
+    void setData(int l, int x, int y, const QString &newValue);
 
 private:
-    int m_data[MagicTower::MAP_LAYER][MagicTower::MAP_HEIGHT][MagicTower::MAP_WIDTH];
+    QString m_data[MagicTower::MAP_LAYER][MagicTower::MAP_HEIGHT][MagicTower::MAP_WIDTH];
 
 signals:
-
+    void dataChanged(int l, int x, int y, const QString &newValue);
 };
 
 #endif // GAMEMAP_H

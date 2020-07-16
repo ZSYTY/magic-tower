@@ -7,6 +7,9 @@ Player::Player(QObject *parent) : QObject(parent) {
     m_defence = 5;
     m_gold = 3;
     m_exp = 3;
+    m_keyCount[MagicTower::YELLOW_KEY] = 1;
+    m_keyCount[MagicTower::BLUE_KEY] = 1;
+    m_keyCount[MagicTower::RED_KEY] = 1;
 }
 
 int Player::getHealth() const {
@@ -29,16 +32,28 @@ int Player::getExp() const {
     return m_exp;
 }
 
+int Player::getLevel() const {
+    return m_level;
+}
+
+int Player::getLayer() const {
+    return m_layer;
+}
+
+int Player::getKeyCount(MagicTower::KeyType keyType) const {
+    return m_keyCount[keyType];
+}
+
+bool Player::getItemOwn(MagicTower::ItemType itemType) const {
+    return m_itemOwn[itemType];
+}
+
 QPair<int, int> Player::getPosition() const {
     return m_position;
 }
 
 MagicTower::Direction Player::getDirection() const {
     return m_direction;
-}
-
-QVector<int>& Player::getItems() {
-    return m_items;
 }
 
 void Player::setHealth(int newValue) {
@@ -73,6 +88,34 @@ void Player::setExp(int newValue) {
     if (m_exp != newValue) {
         m_exp = newValue;
         emit expChanged(newValue);
+    }
+}
+
+void Player::setLevel(int newValue) {
+    if (m_level != newValue) {
+        m_level = newValue;
+        emit levelChanged(newValue);
+    }
+}
+
+void Player::setLayer(int newValue) {
+    if (m_layer != newValue) {
+        m_layer = newValue;
+        emit layerChanged(newValue);
+    }
+}
+
+void Player::setKeyCount(MagicTower::KeyType keyType, int newValue) {
+    if (m_keyCount[keyType] != newValue) {
+        m_keyCount[keyType] = newValue;
+        emit keyCountChanged(keyType, newValue);
+    }
+}
+
+void Player::setItemOwn(MagicTower::ItemType itemType, bool newValue) {
+    if (m_itemOwn[itemType] != newValue) {
+        m_itemOwn[itemType] = newValue;
+        emit itemOwnChanged(itemType, newValue);
     }
 }
 
