@@ -6,21 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1050</width>
-    <height>780</height>
+    <width>1085</width>
+    <height>786</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">background-image:url(:/assets/Images/569.bmp);
+border:5 solid black;
+border-left:1;
+border-right:1</string>
+   </property>
    <widget class="MagicMap" name="mapWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>60</y>
-      <width>660</width>
-      <height>660</height>
+      <x>330</x>
+      <y>40</y>
+      <width>680</width>
+      <height>680</height>
      </rect>
     </property>
     <property name="font">
@@ -38,7 +44,8 @@
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">border:3px solid rgb(204,102,0);</string>
+     <string notr="true">border:3px solid rgb(204,102,0);
+background-image:url(:/assets/Images/221.bmp);</string>
     </property>
    </widget>
    <widget class="QTableWidget" name="playerDataWidget">
@@ -52,11 +59,17 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <family>微软雅黑</family>
+      <pointsize>20</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">border:3px solid rgb(204,102,0);</string>
+     <string notr="true">border:5px solid rgb(204,102,0);
+background-image:url(:/assets/Images/221.bmp);
+color:white;
+text-align:center</string>
     </property>
    </widget>
    <widget class="QTableWidget" name="keysDataWidget">
@@ -65,37 +78,46 @@
       <x>50</x>
       <y>370</y>
       <width>231</width>
-      <height>181</height>
+      <height>191</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <family>微软雅黑</family>
+      <pointsize>20</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">border:3px solid rgb(204,102,0);</string>
+     <string notr="true">border:5px solid rgb(204,102,0);background-image:url(:/assets/Images/221.bmp);
+color:white;</string>
     </property>
    </widget>
    <widget class="QListWidget" name="levelDataWidget">
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>550</y>
+      <y>560</y>
       <width>231</width>
-      <height>61</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>微软雅黑</family>
       <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">border:3px solid rgb(204,102,0);</string>
+     <string notr="true">border:5px solid rgb(204,102,0);
+border-top:0;background-image:url(:/assets/Images/221.bmp);
+color:white;</string>
     </property>
    </widget>
-   <widget class="QListWidget" name="optionsDataWidget">
+   <widget class="QTableWidget" name="optionsDataWidget">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -106,11 +128,15 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>8</pointsize>
+      <family>微软雅黑</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">border:3px solid rgb(204,102,0);</string>
+     <string notr="true">border:5px solid rgb(204,102,0);background-image:url(:/assets/Images/221.bmp);
+color:white;</string>
     </property>
    </widget>
   </widget>
@@ -119,8 +145,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1050</width>
-     <height>22</height>
+     <width>1085</width>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMagicTower">
@@ -137,7 +163,6 @@
    </widget>
    <addaction name="menuMagicTower"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSave">
    <property name="text">
     <string>Open Map</string>
