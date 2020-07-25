@@ -4,6 +4,7 @@
 #include "common/common.h"
 #include <QObject>
 #include <QString>
+#include <QVector>
 
 class GameMap : public QObject
 {
@@ -15,7 +16,7 @@ public:
     void setData(int l, int x, int y, const QString &newValue);
 
 private:
-    QString m_data[MagicTower::MAP_LAYER][MagicTower::MAP_HEIGHT][MagicTower::MAP_WIDTH];
+    QVector<QVector<QVector<QString>>> m_data;
 
 signals:
     void dataChanged(int l, int x, int y, const QString &newValue);

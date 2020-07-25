@@ -1,11 +1,27 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
+#include <QDebug>
+#include <QFile>
+#include <QString>
+#include <QSqlDatabase>
+#include <QSqlDriver>
+#include <QSqlError>
+#include <QSqlRecord>
+#include <QSqlQuery>
+#include "common/gamemap.h"
+#include <memory>
 
-class DataBase
+class Database
 {
 public:
-    DataBase();
+    Database();
+    ~Database();
+    void connect(const QString& dbName);
+    void loadMap(std::shared_ptr<GameMap> gamemap, int id = 0);
+    void saveMap(std::shared_ptr<GameMap> gamemap, int id = 0);
+private:
+    QSqlDatabase db;
 };
 
 #endif // DATABASE_H

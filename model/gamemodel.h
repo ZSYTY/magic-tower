@@ -5,6 +5,7 @@
 #include <memory>
 #include "common/player.h"
 #include "common/gamemap.h"
+#include "database.h"
 
 class GameModel : public QObject
 {
@@ -20,6 +21,7 @@ public:
 private:
     std::shared_ptr<GameMap>    map;
     std::shared_ptr<Player>     player;
+    Database                    database;
 
 signals:
 
