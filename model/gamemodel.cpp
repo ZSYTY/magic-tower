@@ -73,7 +73,7 @@ void GameModel::playerMove(MagicTower::Direction direction) {
                 map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
                 armour cur = database.getArmour(id);
                 player->setDefence(player->getDefence() + cur.defence);
-            } else if (type == "w") { /* weapon */
+            } else if (type == "s") { /* weapon */
                 map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
                 weapon cur = database.getWeapon(id);
                 player->setDefence(player->getDefence() + cur.attack);
