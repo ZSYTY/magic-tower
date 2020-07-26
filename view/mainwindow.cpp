@@ -31,18 +31,22 @@ void MainWindow::InitPlayerWidget()
     label->setPixmap(QPixmap(":/assets/Images/415_.png").scaled(40,40));
     label->setStyleSheet("border:0;padding-left:30");
     //ui->playerDataWidget->setItem(0,0,new QTableWidgetItem(playerImg,""));
+    if(m_player!=nullptr)
+    {
+
+    }
     ui->playerDataWidget->setCellWidget(0,0,label);
     ui->playerDataWidget->setItem(0,1,new QTableWidgetItem("1   级"));
     ui->playerDataWidget->setItem(1,0,new QTableWidgetItem("生命"));
-    ui->playerDataWidget->setItem(1,1,new QTableWidgetItem("100"));
+    ui->playerDataWidget->setItem(1,1,new QTableWidgetItem("1000"));
     ui->playerDataWidget->setItem(2,0,new QTableWidgetItem("攻击"));
-    ui->playerDataWidget->setItem(2,1,new QTableWidgetItem("5"));
+    ui->playerDataWidget->setItem(2,1,new QTableWidgetItem("10"));
     ui->playerDataWidget->setItem(3,0,new QTableWidgetItem("防御"));
-    ui->playerDataWidget->setItem(3,1,new QTableWidgetItem("5"));
+    ui->playerDataWidget->setItem(3,1,new QTableWidgetItem("10"));
     ui->playerDataWidget->setItem(4,0,new QTableWidgetItem("金币"));
-    ui->playerDataWidget->setItem(4,1,new QTableWidgetItem("3"));
+    ui->playerDataWidget->setItem(4,1,new QTableWidgetItem("0"));
     ui->playerDataWidget->setItem(5,0,new QTableWidgetItem("经验"));
-    ui->playerDataWidget->setItem(5,1,new QTableWidgetItem("3"));
+    ui->playerDataWidget->setItem(5,1,new QTableWidgetItem("0"));
     ui->playerDataWidget->horizontalHeader()->setHidden(true);
     ui->playerDataWidget->verticalHeader()->setHidden(true);
     ui->playerDataWidget->setShowGrid(false);
@@ -88,9 +92,10 @@ void MainWindow::InitKeysWidget()
     ui->keysDataWidget->setCellWidget(1,0,labelBlue);
     ui->keysDataWidget->setCellWidget(2,0,labelYellow);
 
-    ui->keysDataWidget->setItem(0,1,new QTableWidgetItem("0"));
-    ui->keysDataWidget->setItem(1,1,new QTableWidgetItem("0"));
-    ui->keysDataWidget->setItem(2,1,new QTableWidgetItem("0"));
+    ui->keysDataWidget->setItem(0,1,new QTableWidgetItem("1"));
+    ui->keysDataWidget->setItem(1,1,new QTableWidgetItem("1"));
+    ui->keysDataWidget->setItem(2,1,new QTableWidgetItem("1"));
+
 
     ui->keysDataWidget->setItem(0,2,new QTableWidgetItem("个"));
     ui->keysDataWidget->setItem(1,2,new QTableWidgetItem("个"));

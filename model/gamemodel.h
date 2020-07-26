@@ -17,6 +17,7 @@ public:
 
     void playerMove(MagicTower::Direction direction);
     std::shared_ptr<Player> getPlayer() const;
+    std::shared_ptr<GameMap> getGameMap() const;
 
 private:
     std::shared_ptr<GameMap>    map;

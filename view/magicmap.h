@@ -6,6 +6,8 @@
 #include <QHash>
 #include <QPainter>
 #include <QKeyEvent>
+#include <QDebug>
+#include <QTimer>
 #include <memory>
 #include <functional>
 #include "common/common.h"
@@ -35,6 +37,13 @@ private:
     std::shared_ptr<Player> m_player;
     QHash<MagicTower::Direction, QString> playerImageHash;
     std::shared_ptr<GameMap> m_gamemap;
+    QMap<QString,QString> map_hash;
+    QMap<QString,QString> map_hash_flash;
+    bool flash_flag;
+    QTimer *m_Timer;
+
+public slots:
+    void shining();
 };
 
 #endif // MAGICMAP_H

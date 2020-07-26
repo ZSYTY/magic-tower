@@ -35,3 +35,7 @@ void GameModel::playerMove(MagicTower::Direction direction) {
 std::shared_ptr<Player> GameModel::getPlayer() const {
     return player;
 }
+
+std::shared_ptr<GameMap> GameModel::getGameMap() const{
+    return map;
+}
