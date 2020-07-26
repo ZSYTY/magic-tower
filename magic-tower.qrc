@@ -192,5 +192,6 @@
         <file>assets/Images/002.png</file>
         <file>assets/Images/001.png</file>
         <file>assets/Images/000.bmp</file>
+        <file>model/database/data.sql</file>
     </qresource>
 </RCC>

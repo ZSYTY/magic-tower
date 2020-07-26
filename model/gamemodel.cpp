@@ -4,6 +4,9 @@ GameModel::GameModel(QObject *parent) : QObject(parent)
 {
     player  = std::make_shared<Player>();
     map     = std::make_shared<GameMap>();
+    database.connect("data");
+    database.loadMap(map);
+    database.loadPlayer(player);
 }
 
 void GameModel::playerMove(MagicTower::Direction direction) {
