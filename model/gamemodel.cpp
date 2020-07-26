@@ -53,7 +53,12 @@ void GameModel::playerMove(MagicTower::Direction direction) {
             if (type == "d") { /* empty */
                 willMove = true;
             } else if (type == "me") { /* merchant */
-                willMove = true;
+                if (id == 4) {
+                    if (newPosition.second == 5) {
+                        map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
+                        map->setData(player->getLayer(), newPosition.first, newPosition.second - 1, ".");
+                    }
+                }
                 /* TODO: different merchant */
             } else if (type == "k") { /* key */
                 map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
