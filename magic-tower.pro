@@ -34,6 +34,7 @@ HEADERS += \
     app/gamepart.h \
     common/common.h \
     model/database.h \
+    model/item.h \
     view/magicmap.h \
     common/gamemap.h \
     model/gamemodel.h \

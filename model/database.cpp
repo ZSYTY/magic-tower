@@ -8,8 +8,6 @@ Database::~Database() {
     db.close();
 }
 
-#include <QCoreApplication>
-#include <QDir>
 void Database::connect(const QString &dbName) {
     db.setDatabaseName(dbName);
     if (! db.open()) {
@@ -96,4 +94,45 @@ void Database::loadPlayer(std::shared_ptr<Player> player, int id) {
 
 void Database::savePlayer(std::shared_ptr<Player> player, int id) {
 
+}
+
+void Database::loadItems() {
+    QSqlQuery query(db);
+    QString str = "SELECT * FROM monster";
+    query.exec(str);
+    while (query.next()) {
+        monster cur(query.value(1).toInt(),
+                    query.value(2).toInt(),
+                    query.value(3).toInt(),
+                    query.value(4).toInt(),
+                    query.value(5).toInt(),
+                    query.value(6).toInt());
+        monsterList[cur.id] = cur;
+    }
+
+    str = "SELECT * FROM medicine";
+    query.exec(str);
+    while (query.next()) {
+        medicine cur(query.value(1).toInt(),
+                     query.value(2).toInt(),
+                     query.value(3).toInt(),
+                     query.value(4).toInt());
+        medicineList[cur.id] = cur;
+    }
+
+    str = "SELECT * FROM weapon";
+    query.exec(str);
+    while (query.next()) {
+        weapon cur(query.value(1).toInt(),
+                   query.value(2).toInt());
+        weaponList[cur.id] = cur;
+    }
+
+    str = "SELECT * FROM armour";
+    query.exec(str);
+    while (query.next()) {
+        armour cur(query.value(1).toInt(),
+                   query.value(2).toInt());
+        armourList[cur.id] = cur;
+    }
 }

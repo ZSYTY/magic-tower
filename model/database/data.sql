@@ -20,6 +20,39 @@ CREATE TABLE IF NOT EXISTS `monster` (
 );
 
 DELETE FROM `monster`;
+INSERT INTO `monster` (`layer`, `id`, `hp`, `attack`, `defence`, `gold`, `exp`) VALUES
+(0, 27, 100, 20, 5, 3, 3),
+(1, 23, 300, 75, 34, 13, 10),
+(1, 15, 900, 750, 650, 77, 70),
+(1, 16, 850, 350, 200, 45, 40),
+(1, 28, 70, 15, 2, 2, 2),
+(1, 29, 50, 20, 1, 1, 1),
+(1, 25, 110, 25, 5, 5, 4),
+(1, 14, 400, 90, 50, 15, 12),
+(1, 8, 125, 50, 25, 10, 7),
+(1, 21, 150, 65, 30, 10, 8),
+(1, 26, 200, 35, 10, 5, 5),
+(4, 20, 550, 160, 90, 25, 20),
+(4, 22, 450, 150, 90, 22, 19),
+(6, 24, 150, 40, 20, 8, 6),
+(6, 7, 100, 200, 110, 30, 25),
+(6, 17, 500, 400, 260, 47, 45),
+(6, 18, 700, 250, 125, 32, 30),
+(6, 6, 500, 115, 65, 15, 15),
+(7, 11, 250, 120, 70, 20, 17),
+(7, 19, 1300, 300, 150, 40, 35),
+(9, 5, 900, 450, 330, 50, 50),
+(11, 2, 1500, 560, 460, 60, 60),
+(11, 3, 1250, 500, 400, 55, 55),
+(11, 4, 1200, 620, 520, 65, 75),
+(12, 10, 2000, 680, 590, 70, 65),
+(12, 12, 1200, 980, 900, 88, 75),
+(12, 13, 1500, 830, 730, 80, 70),
+(14, 9, 2500, 900, 850, 84, 75),
+(16, 30, 15000, 1000, 1000, 100, 100),
+(17, 1, 3100, 1150, 1050, 92, 80),
+(19, 31, 30000, 1700, 1500, 250, 220);
+
 
 CREATE TABLE IF NOT EXISTS `medicine` (
   `layer` int NOT NULL,
@@ -28,6 +61,41 @@ CREATE TABLE IF NOT EXISTS `medicine` (
   `attack` int NOT NULL,
   `defence` int NOT NULL
 );
+
+DELETE FROM `medicine`;
+INSERT INTO `medicine` (`layer`, `id`, `health`, `attack`, `defence`) VALUES
+(1, 1, 200, 0, 0),
+(1, 2, 500, 0, 0),
+(1, 3, 0, 3, 0),
+(1, 4, 0, 0, 3);
+
+CREATE TABLE IF NOT EXISTS `weapon` (
+  `layer` int NOT NULL,
+  `id` int NOT NULL,
+  `attack` int NOT NULL
+);
+
+DELETE FROM `weapon`;
+INSERT INTO `weapon` (`layer`, `id`, `attack`) VALUES
+(3, 1, 10),
+(9, 3, 70),
+(15, 4, 80),
+(19, 5, 150),
+(2, 2, 30);
+
+CREATE TABLE IF NOT EXISTS `armour` (
+  `layer` int NOT NULL,
+  `id` int NOT NULL,
+  `defence` int NOT NULL
+);
+
+DELETE FROM `armour`;
+INSERT INTO `armour` (`layer`, `id`, `defence`) VALUES
+(19, 1, 190),
+(2, 2, 30),
+(5, 5, 10),
+(10, 3, 85),
+(15, 4, 80);
 
 CREATE TABLE IF NOT EXISTS `player` (
   `id` integer PRIMARY KEY AUTOINCREMENT,
