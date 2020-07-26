@@ -56,7 +56,7 @@ void GameModel::playerMove(MagicTower::Direction direction) {
                 if (id == 4) {
                     if (newPosition.second == 5) {
                         map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
-                        map->setData(player->getLayer(), newPosition.first, newPosition.second - 1, ".");
+                        map->setData(player->getLayer(), newPosition.first, newPosition.second - 1, "me_4");
                     }
                 }
                 /* TODO: different merchant */
@@ -64,7 +64,7 @@ void GameModel::playerMove(MagicTower::Direction direction) {
                 map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
                 player->setKeyCount((MagicTower::KeyType)id, player->getKeyCount((MagicTower::KeyType)id) + 1);
             } else if (type == "dr") { /* door */
-                if (player->getKeyCount((MagicTower::KeyType)id)) {
+                if (id < 3 && player->getKeyCount((MagicTower::KeyType)id)) {
                     map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
                     player->setKeyCount((MagicTower::KeyType)id, player->getKeyCount((MagicTower::KeyType)id) - 1);
                 }
