@@ -3,7 +3,9 @@
 
 #include <QMainWindow>
 #include "magicmap.h"
+#include "magicmenu.h"
 #include "common/player.h"
+#include "view/magicmenu.h"
 #include "memory"
 
 QT_BEGIN_NAMESPACE
@@ -41,5 +43,6 @@ public slots:
     void updateExp(int);
     void updateLayer(int);  //楼层
     void updateKeys(MagicTower::KeyType,int);
+    void startGame();
 };
 #endif // MAINWINDOW_H

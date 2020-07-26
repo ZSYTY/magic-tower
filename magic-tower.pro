@@ -24,6 +24,7 @@ SOURCES += \
     common/gamemap.cpp \
     model/gamemodel.cpp \
     main.cpp \
+    view/magicmenu.cpp \
     view/mainwindow.cpp \
     common/player.cpp \
     viewModel/gameviewmodel.cpp
@@ -35,12 +36,14 @@ HEADERS += \
     view/magicmap.h \
     common/gamemap.h \
     model/gamemodel.h \
+    view/magicmenu.h \
     view/mainwindow.h \
     common/player.h \
     viewModel/gameviewmodel.h
 
 FORMS += \
     view/magicmap.ui \
+    view/magicmenu.ui \
     view/mainwindow.ui
 
 TRANSLATIONS += \

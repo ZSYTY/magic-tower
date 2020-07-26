@@ -8,12 +8,14 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->gameWidget->hide();
     this->setFixedSize(this->width(),this->height());
     InitPlayerWidget();
     InitKeysWidget();
     InitLevelWidget();
     InitOptionsWidget();
     setFocusPolicy(Qt::ClickFocus);
+    connect(ui->MenuWidget,SIGNAL(startButtonClicked()),this,SLOT(startGame()));
 }
 
 MainWindow::~MainWindow()
@@ -172,6 +174,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         m_player->setKeyCount(MagicTower::BLUE_KEY,m_player->getKeyCount(MagicTower::BLUE_KEY)+1);
         m_player->setKeyCount(MagicTower::YELLOW_KEY,m_player->getKeyCount(MagicTower::YELLOW_KEY)+1);
         break;
+    case Qt::Key_1:
+        ui->centralwidget->hide();
+        break;
     default:
         break;
     }
@@ -296,4 +301,9 @@ void MainWindow::updateKeys(MagicTower::KeyType keyType,int newValue)
             ui->keysDataWidget->item(2,1)->setFont(numFont);
         break;
     }
+}
+
+void MainWindow::startGame()
+{
+    ui->gameWidget->show();
 }
