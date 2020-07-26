@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QString>
 #include <QVector>
+#include <QPair>
 
 class GameMap : public QObject
 {
@@ -14,6 +15,7 @@ public:
     /* TODO */
     QString getData(int l, int x, int y) const;
     void setData(int l, int x, int y, const QString &newValue);
+    QPair<int, int> findStr(int l, QString str);
 
 private:
     QVector<QVector<QVector<QString>>> m_data;

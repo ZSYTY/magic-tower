@@ -1,17 +1,7 @@
 #include "player.h"
 
 Player::Player(QObject *parent) : QObject(parent) {
-    /* TODO: should init from database */
-    m_level = 1;
-    m_health = 100;
-    m_attack = 5;
-    m_defence = 5;
-    m_gold = 3;
-    m_exp = 3;
-    m_layer = 0;
-    m_keyCount[MagicTower::YELLOW_KEY] = 1;
-    m_keyCount[MagicTower::BLUE_KEY] = 1;
-    m_keyCount[MagicTower::RED_KEY] = 1;
+
 }
 
 int Player::getHealth() const {
