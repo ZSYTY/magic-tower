@@ -192,5 +192,9 @@
         <file>assets/Images/002.png</file>
         <file>assets/Images/001.png</file>
         <file>assets/Images/000.bmp</file>
+        <file>model/database/data.sql</file>
+        <file>view/mapHash/mapHash.txt</file>
+        <file>view/mapHash/mapHash_flash.txt</file>
+        <file>assets/Styles/gameMenu.qss</file>
     </qresource>
 </RCC>

@@ -4,6 +4,8 @@
 #include "common/common.h"
 #include <QObject>
 #include <QString>
+#include <QVector>
+#include <QPair>
 
 class GameMap : public QObject
 {
@@ -13,9 +15,10 @@ public:
     /* TODO */
     QString getData(int l, int x, int y) const;
     void setData(int l, int x, int y, const QString &newValue);
+    QPair<int, int> findStr(int l, QString str);
 
 private:
-    QString m_data[MagicTower::MAP_LAYER][MagicTower::MAP_HEIGHT][MagicTower::MAP_WIDTH];
+    QVector<QVector<QVector<QString>>> m_data;
 
 signals:
     void dataChanged(int l, int x, int y, const QString &newValue);

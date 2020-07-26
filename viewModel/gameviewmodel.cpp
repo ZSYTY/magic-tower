@@ -23,3 +23,7 @@ std::shared_ptr<GameModel> GameViewModel::detachModel() noexcept {
 std::shared_ptr<Player> GameViewModel::getPlayer() const {
     return m_gameModel->getPlayer();
 }
+
+std::shared_ptr<GameMap> GameViewModel::getGameMap() const{
+    return m_gameModel->getGameMap();
+}

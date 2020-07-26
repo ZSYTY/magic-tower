@@ -6,10 +6,13 @@
 #include <QHash>
 #include <QPainter>
 #include <QKeyEvent>
+#include <QDebug>
+#include <QTimer>
 #include <memory>
 #include <functional>
 #include "common/common.h"
 #include "common/player.h"
+#include "common/gamemap.h"
 
 namespace Ui {
 class MagicMap;
@@ -23,6 +26,7 @@ public:
     explicit MagicMap(QWidget *parent = nullptr);
     ~MagicMap();
     void attachPlayer(const std::shared_ptr<Player>& player);
+    void attachGameMap(const std::shared_ptr<GameMap>& gamemap);
     /* std::shared_ptr<Player> detachPlayer() noexcept; */
 
 protected:
@@ -32,6 +36,14 @@ private:
     Ui::MagicMap *ui;
     std::shared_ptr<Player> m_player;
     QHash<MagicTower::Direction, QString> playerImageHash;
+    std::shared_ptr<GameMap> m_gamemap;
+    QMap<QString,QString> map_hash;
+    QMap<QString,QString> map_hash_flash;
+    bool flash_flag;
+    QTimer *m_Timer;
+
+public slots:
+    void shining();
 };
 
 #endif // MAGICMAP_H

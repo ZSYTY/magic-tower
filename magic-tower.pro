@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,10 +20,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     app/app.cpp \
     app/gamepart.cpp \
+    model/database.cpp \
     view/magicmap.cpp \
     common/gamemap.cpp \
     model/gamemodel.cpp \
     main.cpp \
+    view/magicmenu.cpp \
     view/mainwindow.cpp \
     common/player.cpp \
     viewModel/gameviewmodel.cpp
@@ -32,15 +34,19 @@ HEADERS += \
     app/app.h \
     app/gamepart.h \
     common/common.h \
+    model/database.h \
+    model/item.h \
     view/magicmap.h \
     common/gamemap.h \
     model/gamemodel.h \
+    view/magicmenu.h \
     view/mainwindow.h \
     common/player.h \
     viewModel/gameviewmodel.h
 
 FORMS += \
     view/magicmap.ui \
+    view/magicmenu.ui \
     view/mainwindow.ui
 
 TRANSLATIONS += \
@@ -50,9 +56,6 @@ TRANSLATIONS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-DISTFILES += \
-    assets/Images/878.jpg
 
 RESOURCES += \
     magic-tower.qrc
