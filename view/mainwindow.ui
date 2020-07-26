@@ -23,7 +23,7 @@
       <x>0</x>
       <y>0</y>
       <width>1080</width>
-      <height>763</height>
+      <height>780</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -158,36 +158,13 @@ color:white;</string>
       <x>0</x>
       <y>0</y>
       <width>1080</width>
-      <height>760</height>
+      <height>780</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color:black</string>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1085</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuMagicTower">
-    <property name="title">
-     <string>MagicTower</string>
-    </property>
-    <addaction name="actionSave"/>
-    <addaction name="separator"/>
-    <addaction name="actionOpen"/>
-    <addaction name="actionLoad_Record"/>
-    <addaction name="actionRestart"/>
-    <addaction name="separator"/>
-    <addaction name="actionExit"/>
-   </widget>
-   <addaction name="menuMagicTower"/>
   </widget>
   <action name="actionSave">
    <property name="text">
