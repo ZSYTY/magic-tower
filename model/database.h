@@ -26,6 +26,10 @@ public:
     void loadPlayer(std::shared_ptr<Player> player, int id = 0);
     void savePlayer(std::shared_ptr<Player> player, int id = 0);
     void loadItems();
+    monster getMonster(int id);
+    medicine getMedicine(int id);
+    weapon getWeapon(int id);
+    armour getArmour(int id);
 private:
     QSqlDatabase db;
     QHash<int, monster> monsterList;

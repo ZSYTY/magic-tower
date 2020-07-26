@@ -7,6 +7,7 @@ GameModel::GameModel(QObject *parent) : QObject(parent)
     database.connect("data");
     database.loadMap(map);
     database.loadPlayer(player);
+    database.loadItems();
 }
 
 void GameModel::playerMove(MagicTower::Direction direction) {

@@ -136,3 +136,21 @@ void Database::loadItems() {
         armourList[cur.id] = cur;
     }
 }
+
+monster Database::getMonster(int id) {
+    return monsterList[id];
+}
+
+medicine Database::getMedicine(int id) {
+    return medicineList[id];
+}
+
+weapon Database::getWeapon(int id) {
+    return weaponList[id];
+}
+
+armour Database::getArmour(int id) {
+    return armourList[id];
+}
+
+
