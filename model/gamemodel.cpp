@@ -62,15 +62,24 @@ void GameModel::playerMove(MagicTower::Direction direction) {
                         map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
                         map->setData(player->getLayer(), newPosition.first, newPosition.second - 1, "me_4");
                     }
-                } else if (id == 3) {
+                } else if (id == 3 && player->getLayer() == 3) {
                     emit openModal("商人: 用25元换取任意一项:\n1. 增加800点生命\n2. 增加4点攻击\n3. 增加4点防御\n0. 取消");
                     meetNpc = 3;
-                } else if (id == 2) {
-                    emit openModal("商人: 经验换实力.\n1. 提升一级(100经验)\n2. 增加5点攻击(30经验)\n3. 增加5点防御(30点经验)");
+                } else if (id == 2 && player->getLayer() == 5) {
+                    emit openModal("商人: 经验换实力.\n1. 提升一级(100经验)\n2. 增加5点攻击(30经验)\n3. 增加5点防御(30点经验)\n0. 取消");
                     meetNpc = 2;
-                } else if (id == 1) {
-                    emit openModal("商人: 金币换钥匙.\n1. 购买一把黄钥匙($10)\n2. 购买一把蓝钥匙($50)\n3. 购买一把红钥匙($100)");
+                } else if (id == 1 && player->getLayer() == 5) {
+                    emit openModal("商人: 金币换钥匙.\n1. 购买一把黄钥匙($10)\n2. 购买一把蓝钥匙($50)\n3. 购买一把红钥匙($100)\n0. 取消");
                     meetNpc = 1;
+                } else if (id == 3 && player->getLayer() == 11) {
+                    emit openModal("商人: 用100元换取任意一项:\n1. 增加4000点生命\n2. 增加20点攻击\n3. 增加20点防御\n0. 取消");
+                    meetNpc = 3;
+                } else if (id == 1 && player->getLayer() == 12) {
+                    emit openModal("商人: 如果你缺少金币, 我可以帮你.\n1. 卖出一把黄钥匙($7)\n2. 卖出一把蓝钥匙($35)\n3. 卖出一把红钥匙($70)\n0. 取消");
+                    meetNpc = 1;
+                } else if (id == 2 && player->getLayer() == 13) {
+                    emit openModal("商人: 经验换实力.\n1. 提升三级(270经验)\n2. 增加17点攻击(95经验)\n3. 增加17点防御(95点经验)\n0. 取消");
+                    meetNpc = 2;
                 }
                 /* TODO: different merchant */
             } else if (type == "k") { /* key */
@@ -133,22 +142,26 @@ void GameModel::playerMove(MagicTower::Direction direction) {
 
 
 void GameModel::playerChoose(int choice) {
-    if (meetNpc == 3) {
+    if (meetNpc == 3 && player->getLayer() == 3) {
         if (choice >= 0 && choice <= 3) {
             if (player->getGold() >= 25) {
-                player->setGold(player->getGold() - 25);
                 if (choice == 1) {
                     player->setHealth(player->getHealth() + 800);
+                    player->setGold(player->getGold() - 25);
                 } else if (choice == 2) {
                     player->setAttack(player->getAttack() + 4);
+                    player->setGold(player->getGold() - 25);
                 } else if (choice == 3) {
                     player->setDefence(player->getDefence() + 4);
+                    player->setGold(player->getGold() - 25);
                 }
+            } else {
+                emit itemGet("金币不足！");
             }
             meetNpc = 0;
             emit closeModal();
         }
-    } else if (meetNpc == 2) {
+    } else if (meetNpc == 2 && player->getLayer() == 5) {
         if (choice >= 0 && choice <= 3) {
             if (choice == 1) {
                 if (player->getExp() >= 100) {
@@ -156,37 +169,124 @@ void GameModel::playerChoose(int choice) {
                     player->setHealth(player->getHealth() + 1000);
                     player->setAttack(player->getAttack() + 7);
                     player->setDefence(player->getDefence() + 7);
+                } else {
+                    emit itemGet("经验值不足！");
                 }
             } else if (choice == 2) {
                 if (player->getExp() >= 30) {
                     player->setExp(player->getExp() - 30);
                     player->setAttack(player->getAttack() + 5);
+                } else {
+                    emit itemGet("经验值不足！");
                 }
             } else if (choice == 3) {
                 if (player->getExp() >= 30) {
                     player->setExp(player->getExp() - 30);
                     player->setDefence(player->getDefence() + 5);
+                } else {
+                    emit itemGet("经验值不足！");
                 }
             }
             meetNpc = 0;
             emit closeModal();
         }
-    } else if (meetNpc == 1) {
+    } else if (meetNpc == 1 && player->getLayer() == 5) {
         if (choice >= 0 && choice <= 3) {
             if (choice == 1) {
                 if (player->getGold() >= 10) {
                     player->setGold(player->getGold() - 10);
                     player->setKeyCount((MagicTower::KeyType)0, player->getKeyCount((MagicTower::KeyType)0) + 1);
+                } else {
+                    emit itemGet("金币不足！");
                 }
             } else if (choice == 2) {
                 if (player->getGold() >= 50) {
                     player->setGold(player->getGold() - 50);
                     player->setKeyCount((MagicTower::KeyType)1, player->getKeyCount((MagicTower::KeyType)1) + 1);
+                } else {
+                    emit itemGet("金币不足！");
                 }
             } else if (choice == 3) {
                 if (player->getGold() >= 100) {
                     player->setGold(player->getGold() - 100);
                     player->setKeyCount((MagicTower::KeyType)2, player->getKeyCount((MagicTower::KeyType)2) + 1);
+                } else {
+                    emit itemGet("金币不足！");
+                }
+            }
+            meetNpc = 0;
+            emit closeModal();
+        }
+    } else if (meetNpc == 3 && player->getLayer() == 11) {
+        if (choice >= 0 && choice <= 3) {
+            if (player->getGold() >= 100) {
+                if (choice == 1) {
+                    player->setHealth(player->getHealth() + 4000);
+                    player->setGold(player->getGold() - 100);
+                } else if (choice == 2) {
+                    player->setAttack(player->getAttack() + 20);
+                    player->setGold(player->getGold() - 100);
+                } else if (choice == 3) {
+                    player->setDefence(player->getDefence() + 20);
+                    player->setGold(player->getGold() - 100);
+                }
+            } else {
+                emit itemGet("金币不足！");
+            }
+            meetNpc = 0;
+            emit closeModal();
+        }
+    } else if (meetNpc == 2 && player->getLayer() == 13) {
+        if (choice >= 0 && choice <= 3) {
+            if (choice == 1) {
+                if (player->getExp() >= 270) {
+                    player->setExp(player->getExp() - 270);
+                    player->setHealth(player->getHealth() + 3000);
+                    player->setAttack(player->getAttack() + 21);
+                    player->setDefence(player->getDefence() + 21);
+                } else {
+                    emit itemGet("经验值不足！");
+                }
+            } else if (choice == 2) {
+                if (player->getExp() >= 95) {
+                    player->setExp(player->getExp() - 95);
+                    player->setAttack(player->getAttack() + 17);
+                } else {
+                    emit itemGet("经验值不足！");
+                }
+            } else if (choice == 3) {
+                if (player->getExp() >= 95) {
+                    player->setExp(player->getExp() - 95);
+                    player->setDefence(player->getDefence() + 17);
+                } else {
+                    emit itemGet("经验值不足！");
+                }
+            }
+            meetNpc = 0;
+            emit closeModal();
+        }
+    } else if (meetNpc == 1 && player->getLayer() == 12) {
+        if (choice >= 0 && choice <= 3) {
+            if (choice == 1) {
+                if (player->getKeyCount((MagicTower::KeyType)0)) {
+                    player->setGold(player->getGold() + 7);
+                    player->setKeyCount((MagicTower::KeyType)0, player->getKeyCount((MagicTower::KeyType)0) - 1);
+                } else {
+                    emit itemGet("金币不足！");
+                }
+            } else if (choice == 2) {
+                if (player->getKeyCount((MagicTower::KeyType)1)) {
+                    player->setGold(player->getGold() + 35);
+                    player->setKeyCount((MagicTower::KeyType)1, player->getKeyCount((MagicTower::KeyType)1) - 1);
+                } else {
+                    emit itemGet("金币不足！");
+                }
+            } else if (choice == 3) {
+                if (player->getKeyCount((MagicTower::KeyType)2)) {
+                    player->setGold(player->getGold() + 70);
+                    player->setKeyCount((MagicTower::KeyType)2, player->getKeyCount((MagicTower::KeyType)2) - 1);
+                } else {
+                    emit itemGet("金币不足！");
                 }
             }
             meetNpc = 0;
