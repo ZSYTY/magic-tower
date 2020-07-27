@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->gameWidget->hide();
     this->setFixedSize(this->width(),this->height());
+    this->setWindowTitle("Magic Tower");
+    this->setWindowIcon(QIcon(":/assets/Images/415_.png"));
     InitPlayerWidget();
     InitKeysWidget();
     InitLevelWidget();
