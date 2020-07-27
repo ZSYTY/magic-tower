@@ -16,6 +16,9 @@ public:
 
     std::function<void(MagicTower::Direction)> getPlayerMoveCommand();
     std::function<void(int)> getPlayerChooseCommand();
+    std::function<void()> getSaveCommand();
+    std::function<void()> getLoadCommand();
+    std::function<void()> getRestartCommand();
 
     void attachModel(const std::shared_ptr<GameModel>& gameModel) noexcept;
     std::shared_ptr<GameModel> detachModel() noexcept;

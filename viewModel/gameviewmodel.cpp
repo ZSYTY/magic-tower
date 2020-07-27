@@ -18,6 +18,24 @@ std::function<void(int)> GameViewModel::getPlayerChooseCommand() {
     };
 }
 
+std::function<void()> GameViewModel::getLoadCommand() {
+    return [this] () {
+        return this->m_gameModel->gameLoad();
+    };
+}
+
+std::function<void()> GameViewModel::getSaveCommand() {
+    return [this] () {
+        return this->m_gameModel->gameSave();
+    };
+}
+
+std::function<void()> GameViewModel::getRestartCommand() {
+    return [this] () {
+        return this->m_gameModel->gameLoad();
+    };
+}
+
 void GameViewModel::attachModel(const std::shared_ptr<GameModel>& gameModel) noexcept {
     m_gameModel = gameModel;
 }

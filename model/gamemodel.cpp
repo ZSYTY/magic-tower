@@ -156,7 +156,9 @@ void GameModel::playerChoose(int choice) {
                     player->setGold(player->getGold() - 25);
                 }
             } else {
-                emit itemGet("金币不足！");
+                if (choice) {
+                    emit itemGet("金币不足！");
+                }
             }
             meetNpc = 0;
             emit closeModal();
@@ -231,7 +233,9 @@ void GameModel::playerChoose(int choice) {
                     player->setGold(player->getGold() - 100);
                 }
             } else {
-                emit itemGet("金币不足！");
+                if (choice) {
+                    emit itemGet("金币不足！");
+                }
             }
             meetNpc = 0;
             emit closeModal();
@@ -301,4 +305,22 @@ std::shared_ptr<Player> GameModel::getPlayer() const {
 
 std::shared_ptr<GameMap> GameModel::getGameMap() const{
     return map;
+}
+
+void GameModel::gameSave() {
+    database.saveMap(map, 1);
+    database.savePlayer(player, 1);
+    emit itemGet("保存成功");
+}
+
+void GameModel::gameLoad() {
+    database.loadMap(map, 1);
+    database.loadPlayer(player, 1);
+    emit itemGet("读取成功");
+}
+
+void GameModel::gameRestart() {
+    database.loadMap(map);
+    database.loadPlayer(player);
+    emit itemGet("重新开始");
 }
