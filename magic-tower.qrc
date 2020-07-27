@@ -197,5 +197,11 @@
         <file>view/mapHash/mapHash_flash.txt</file>
         <file>assets/Styles/gameMenu.qss</file>
         <file>assets/Images/mainLabel.png</file>
+        <file>assets/Sounds/streaming.wav</file>
+        <file>assets/Sounds/about.wav</file>
+        <file>assets/Sounds/step.wav</file>
+        <file>assets/Sounds/gain.wav</file>
+        <file>assets/Sounds/beat.wav</file>
+        <file>assets/Sounds/map.wav</file>
     </qresource>
 </RCC>

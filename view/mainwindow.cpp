@@ -6,6 +6,8 @@
 #include <QPropertyAnimation>
 #include <QSequentialAnimationGroup >
 #include <QTextCursor>
+#include <QThread>
+#include <QMediaPlaylist>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -25,6 +27,20 @@ MainWindow::MainWindow(QWidget *parent)
     ui->successLabel->hide();
     ui->intTextEdit->hide();
     ui->intTextEdit->setReadOnly(true);
+
+    stepBgm=new QMediaPlayer();
+    stepBgm->setMedia(QUrl("qrc:/assets/Sounds/step.wav"));
+    gainBgm=new QMediaPlayer();
+    gainBgm->setMedia(QUrl("qrc:/assets/Sounds/gain.wav"));
+    beatBgm=new QMediaPlayer();
+    beatBgm->setMedia(QUrl("qrc:/assets/Sounds/beat.wav"));
+
+    QMediaPlaylist *bgmList=new QMediaPlaylist();
+    bgmList->addMedia(QUrl("qrc:/assets/Sounds/map.wav"));
+    mapBgm=new QMediaPlayer();
+    bgmList->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+    mapBgm->setPlaylist(bgmList);
+
     setFocusPolicy(Qt::ClickFocus);
     connect(ui->MenuWidget,SIGNAL(startButtonClicked()),this,SLOT(startGame()));
     connect(ui->MenuWidget,SIGNAL(exitButtonClicked()),this,SLOT(exitGame()));
@@ -163,16 +179,24 @@ void MainWindow::InitOptionsWidget()
 void MainWindow::keyPressEvent(QKeyEvent *event) {
     switch (event->key()) {
     case Qt::Key_Up:
+        stepBgm->play();
         m_playerMoveCommand(MagicTower::UP);
+        QThread::msleep(50);
         break;
     case Qt::Key_Down:
+        stepBgm->play();
         m_playerMoveCommand(MagicTower::DOWN);
+        QThread::msleep(50);
         break;
     case Qt::Key_Left:
+        stepBgm->play();
         m_playerMoveCommand(MagicTower::LEFT);
+        QThread::msleep(50);
         break;
     case Qt::Key_Right:
+        stepBgm->play();
         m_playerMoveCommand(MagicTower::RIGHT);
+        QThread::msleep(50);
         break;
     case Qt::Key_9:   //for test: 测试人物信息绑定是否成功，以及connect是否成功
         m_player->setLevel(m_player->getLevel()+1);
@@ -197,6 +221,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         break;
     case Qt::Key_3:
         m_playerChooseCommand(3);
+        break;
+    case Qt::Key_Q:
+        exitGame();
         break;
     default:
         break;
@@ -323,6 +350,8 @@ void MainWindow::updateKeys(MagicTower::KeyType keyType,int newValue)
 void MainWindow::startGame()
 {
     ui->gameWidget->show();
+    mapBgm->setVolume(50);
+    mapBgm->play();
 }
 void MainWindow::exitGame()
 {
@@ -330,6 +359,7 @@ void MainWindow::exitGame()
 }
 void MainWindow::gainItem(QString newValue)
 {
+    gainBgm->play();
     ui->gainLabel->setText(newValue);
     ui->gainLabel->show();
     QGraphicsOpacityEffect *gainLabelOpacity = new QGraphicsOpacityEffect(this);
@@ -346,6 +376,8 @@ void MainWindow::success(QString newValue)
     ui->gainLabel->setText(newValue);
     ui->gainLabel->show();
     ui->successLabel->show();
+
+    beatBgm->play();
 
     QGraphicsOpacityEffect *successLabelOpacity = new QGraphicsOpacityEffect(this);
     successLabelOpacity->setOpacity(1);

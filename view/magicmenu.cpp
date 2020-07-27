@@ -6,6 +6,7 @@
 #include <QSequentialAnimationGroup>
 #include <QParallelAnimationGroup>
 #include <QGraphicsOpacityEffect>
+#include <QMediaPlaylist>
 
 MagicMenu::MagicMenu(QWidget *parent) :
     QWidget(parent),
@@ -18,10 +19,20 @@ MagicMenu::MagicMenu(QWidget *parent) :
     ui->aboutWidget->hide();
     ui->aboutTextEdit->setReadOnly(true);
 
+    QMediaPlaylist *bgmList=new QMediaPlaylist();
+    bgmList->addMedia(QUrl("qrc:/assets/Sounds/streaming.wav"));
+    menuBgm=new QMediaPlayer();
+    bgmList->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+    menuBgm->setPlaylist(bgmList);
+    menuBgm->play();
+
     mainLabelGraph();
 
+
     connect(ui->startButton,SIGNAL(clicked()),this,SLOT(startGame()));
+    connect(ui->aboutButton,SIGNAL(clicked()),this,SLOT(openAbout()));
     connect(ui->exitButton,SIGNAL(clicked()),this,SLOT(exitGame()));
+    connect(ui->aboutBackButton,SIGNAL(clicked()),this,SLOT(closeAbout()));
 }
 
 MagicMenu::~MagicMenu()
@@ -32,6 +43,7 @@ MagicMenu::~MagicMenu()
 void MagicMenu::startGame()
 {
     this->hide();
+    menuBgm->stop();
     emit startButtonClicked();
 }
 void MagicMenu::exitGame()
@@ -102,4 +114,19 @@ void MagicMenu::mainLabelGraph()
     s_group->addAnimation(aniEn);
     s_group->addAnimation(p_group);
     s_group->start();
+}
+void MagicMenu::openAbout()
+{
+    menuBgm->pause();
+    QMediaPlaylist *bgmList=new QMediaPlaylist();
+    bgmList->addMedia(QUrl("qrc:/assets/Sounds/about.wav"));
+    aboutBgm=new QMediaPlayer();
+    bgmList->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+    aboutBgm->setPlaylist(bgmList);
+    aboutBgm->play();
+}
+void MagicMenu::closeAbout()
+{
+    aboutBgm->stop();
+    menuBgm->play();
 }

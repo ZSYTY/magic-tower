@@ -7,6 +7,7 @@
 #include "common/player.h"
 #include "view/magicmenu.h"
 #include "memory"
+#include <QMediaPlayer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -35,6 +36,10 @@ private:
     std::function<void(MagicTower::Direction)> m_playerMoveCommand;
     std::function<void(int)> m_playerChooseCommand;
     std::shared_ptr<Player> m_player;
+    QMediaPlayer *stepBgm;
+    QMediaPlayer *beatBgm;
+    QMediaPlayer *gainBgm;
+    QMediaPlayer *mapBgm;
 
 public slots:
     void updateLevel(int);  //人物等级

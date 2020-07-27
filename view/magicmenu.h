@@ -2,6 +2,7 @@
 #define MAGICMENU_H
 
 #include <QWidget>
+#include <QMediaPlayer>
 
 namespace Ui {
 class MagicMenu;
@@ -17,11 +18,15 @@ public:
 
 private:
     Ui::MagicMenu *ui;
+    QMediaPlayer *menuBgm;
+    QMediaPlayer *aboutBgm;
     void mainLabelGraph();
 
 public slots:
     void startGame();
     void exitGame();
+    void openAbout();
+    void closeAbout();
 
 signals:
     void startButtonClicked();
