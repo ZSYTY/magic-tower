@@ -47,5 +47,6 @@ public slots:
     void exitGame();
     void gainItem(QString);
     void success(QString);
+    void openModal(QString);
 };
 #endif // MAINWINDOW_H

@@ -16,6 +16,7 @@ MagicMenu::MagicMenu(QWidget *parent) :
     QPixmap mainLabelPix(":/assets/Images/mainLabel.png");
     ui->mainLabel->setPixmap(mainLabelPix);
     ui->aboutWidget->hide();
+    ui->aboutTextEdit->setReadOnly(true);
 
     mainLabelGraph();
 

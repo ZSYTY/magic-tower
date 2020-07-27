@@ -9,6 +9,9 @@ GamePart::GamePart(QObject *parent) : QObject(parent)
     m_mainWindow.getMapWidget()->attachGameMap(m_gameViewModel.getGameMap());
     /* TODO */
 
+    connect(&m_gameModel,SIGNAL(playerWin(QString)),&m_mainWindow,SLOT(success(QString)));
+    connect(&m_gameModel,SIGNAL(itemGet(QString)),&m_mainWindow,SLOT(gainItem(QString)));
+    connect(&m_gameModel,SIGNAL(openModal(QString)),&m_mainWindow,SLOT(openModal(QString)));
 }
 
 MainWindow& GamePart::getMainWindow() {

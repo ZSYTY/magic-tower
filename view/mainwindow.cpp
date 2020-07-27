@@ -5,6 +5,7 @@
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
 #include <QSequentialAnimationGroup >
+#include <QTextCursor>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->gainLabel->hide();
     ui->successLabel->hide();
+    ui->intTextEdit->hide();
+    ui->intTextEdit->setReadOnly(true);
     setFocusPolicy(Qt::ClickFocus);
     connect(ui->MenuWidget,SIGNAL(startButtonClicked()),this,SLOT(startGame()));
     connect(ui->MenuWidget,SIGNAL(exitButtonClicked()),this,SLOT(exitGame()));
@@ -344,7 +347,7 @@ void MainWindow::success(QString newValue)
     successLabelOpacity->setOpacity(1);
     ui->successLabel->setGraphicsEffect(successLabelOpacity);
     QPropertyAnimation *ani1 = new QPropertyAnimation(successLabelOpacity,"opacity");
-    ani1->setDuration(1000);
+    ani1->setDuration(500);
     ani1->setStartValue(1);
     ani1->setEndValue(0);
 
@@ -352,7 +355,7 @@ void MainWindow::success(QString newValue)
     gainLabelOpacity->setOpacity(0);
     ui->gainLabel->setGraphicsEffect(gainLabelOpacity);
     QPropertyAnimation *ani = new QPropertyAnimation(gainLabelOpacity,"opacity");
-    ani->setDuration(1000);
+    ani->setDuration(500);
     ani->setStartValue(0);
     ani->setKeyValueAt(0.1,1);
     ani->setEndValue(0);
@@ -361,4 +364,11 @@ void MainWindow::success(QString newValue)
     s_group->addAnimation(ani1);
     s_group->addAnimation(ani);
     s_group->start();
+}
+void MainWindow::openModal(QString value)
+{
+    qDebug()<<value;
+    ui->intTextEdit->show();
+    ui->intTextEdit->setText(value);
+    ui->intTextEdit->setReadOnly(true);
 }
