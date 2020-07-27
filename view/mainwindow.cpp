@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     InitOptionsWidget();
     setFocusPolicy(Qt::ClickFocus);
     connect(ui->MenuWidget,SIGNAL(startButtonClicked()),this,SLOT(startGame()));
+    connect(ui->MenuWidget,SIGNAL(exitButtonClicked()),this,SLOT(exitGame()));
 }
 
 MainWindow::~MainWindow()
@@ -303,4 +304,8 @@ void MainWindow::updateKeys(MagicTower::KeyType keyType,int newValue)
 void MainWindow::startGame()
 {
     ui->gameWidget->show();
+}
+void MainWindow::exitGame()
+{
+    this->close();
 }

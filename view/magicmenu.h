@@ -21,9 +21,11 @@ private:
 
 public slots:
     void startGame();
+    void exitGame();
 
 signals:
     void startButtonClicked();
+    void exitButtonClicked();
 };
 
 #endif // MAGICMENU_H

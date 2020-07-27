@@ -44,5 +44,6 @@ public slots:
     void updateLayer(int);  //楼层
     void updateKeys(MagicTower::KeyType,int);
     void startGame();
+    void exitGame();
 };
 #endif // MAINWINDOW_H

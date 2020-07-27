@@ -15,16 +15,12 @@ MagicMenu::MagicMenu(QWidget *parent) :
 
     QPixmap mainLabelPix(":/assets/Images/mainLabel.png");
     ui->mainLabel->setPixmap(mainLabelPix);
+    ui->aboutWidget->hide();
 
     mainLabelGraph();
 
-    QFile file(":/assets/Styles/gameMenu.qss");
-    file.open(QFile::ReadOnly);
-    QTextStream in(&file);
-    QString stylesheet=in.readAll();
-    qDebug()<<stylesheet;
-    this->setStyleSheet(stylesheet);
     connect(ui->startButton,SIGNAL(clicked()),this,SLOT(startGame()));
+    connect(ui->exitButton,SIGNAL(clicked()),this,SLOT(exitGame()));
 }
 
 MagicMenu::~MagicMenu()
@@ -36,6 +32,10 @@ void MagicMenu::startGame()
 {
     this->hide();
     emit startButtonClicked();
+}
+void MagicMenu::exitGame()
+{
+    emit exitButtonClicked();
 }
 void MagicMenu::mainLabelGraph()
 {
