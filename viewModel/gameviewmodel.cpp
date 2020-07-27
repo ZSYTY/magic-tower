@@ -36,6 +36,12 @@ std::function<void()> GameViewModel::getRestartCommand() {
     };
 }
 
+std::function<void()> GameViewModel::getUseBookCommand() {
+    return [this] () {
+        return this->m_gameModel->useBook();
+    };
+}
+
 void GameViewModel::attachModel(const std::shared_ptr<GameModel>& gameModel) noexcept {
     m_gameModel = gameModel;
 }

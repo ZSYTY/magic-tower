@@ -2,9 +2,10 @@
 
 GameModel::GameModel(QObject *parent) : QObject(parent)
 {
-    meetNpc = false;
-    player  = std::make_shared<Player>();
-    map     = std::make_shared<GameMap>();
+    isBookOpened    = false;
+    meetNpc         = 0;
+    player          = std::make_shared<Player>();
+    map             = std::make_shared<GameMap>();
     database.connect("data");
     database.loadMap(map);
     database.loadPlayer(player);
@@ -50,6 +51,9 @@ void GameModel::playerMove(MagicTower::Direction direction) {
                 player->setLayer(player->getLayer() + 1);
                 newPosition = map->findStr(player->getLayer(), "d_0");
                 qDebug() << newPosition;
+            } else if (type == "wi") {
+                map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
+                player->setItemOwn(MagicTower::MONSTER_BOOK, true);
             }
         } else if(status.size() == 2) {
             QString &type = status[0];
@@ -323,4 +327,30 @@ void GameModel::gameRestart() {
     database.loadMap(map);
     database.loadPlayer(player);
     emit itemGet("重新开始");
+}
+
+void GameModel::useBook() {
+    if (player->getItemOwn(MagicTower::MONSTER_BOOK)) {
+        if (isBookOpened) {
+            isBookOpened = false;
+            emit closeBook();
+        } else {
+            isBookOpened = true;
+            QVector<monster> monsterList;
+            QSet<int> monsterIdSet;
+            for (int x = 0; x < MagicTower::MAP_HEIGHT; x++) {
+                for (int y = 0; y < MagicTower::MAP_WIDTH; y++) {
+                    QString statusStr = map->getData(player->getLayer(), x, y);
+                    QStringList status = statusStr.split('_');
+                    if (status.size() == 2 && status[0] == "e") {
+                        monsterIdSet.insert(status[1].toInt());
+                    }
+                }
+            }
+            foreach (int id, monsterIdSet) {
+                monsterList.push_back(database.getMonster(id));
+            }
+            emit openBook(monsterList);
+        }
+    }
 }
