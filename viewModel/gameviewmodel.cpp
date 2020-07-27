@@ -12,6 +12,12 @@ std::function<void(MagicTower::Direction)> GameViewModel::getPlayerMoveCommand()
     };
 }
 
+std::function<void(int)> GameViewModel::getPlayerChooseCommand() {
+    return [this] (int choice) {
+        return this->m_gameModel->playerChoose(choice);
+    };
+}
+
 void GameViewModel::attachModel(const std::shared_ptr<GameModel>& gameModel) noexcept {
     m_gameModel = gameModel;
 }

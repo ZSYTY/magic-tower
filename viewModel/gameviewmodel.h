@@ -15,6 +15,7 @@ public:
     GameViewModel& operator=(const GameViewModel&) = delete;
 
     std::function<void(MagicTower::Direction)> getPlayerMoveCommand();
+    std::function<void(int)> getPlayerChooseCommand();
 
     void attachModel(const std::shared_ptr<GameModel>& gameModel) noexcept;
     std::shared_ptr<GameModel> detachModel() noexcept;
