@@ -151,6 +151,63 @@ color:white;</string>
 color:white;</string>
      </property>
     </widget>
+    <widget class="QLabel" name="gainLabel">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>240</y>
+       <width>1011</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>黑体</family>
+       <pointsize>28</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;
+border:3px solid rgb(204,102,0);
+background-image:url(:/assets/Images/221.bmp);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="successLabel">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>250</y>
+       <width>1011</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>华文行楷</family>
+       <pointsize>70</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:rgb(255, 74, 79);
+background:transparent;
+border:0;
+text-shadow:5px 2px 6px white;</string>
+     </property>
+     <property name="text">
+      <string>战斗胜利</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
    </widget>
    <widget class="MagicMenu" name="MenuWidget" native="true">
     <property name="geometry">
@@ -165,6 +222,8 @@ color:white;</string>
      <string notr="true">background-color:black</string>
     </property>
    </widget>
+   <zorder>MenuWidget</zorder>
+   <zorder>gameWidget</zorder>
   </widget>
   <action name="actionSave">
    <property name="text">

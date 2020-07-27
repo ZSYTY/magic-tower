@@ -157,7 +157,7 @@ QPushButton:hover{border:0;color:rgb(156,166,173)}</string>
    <widget class="QLabel" name="cnLabel">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>580</x>
       <y>100</y>
       <width>111</width>
       <height>101</height>
@@ -181,7 +181,7 @@ QPushButton:hover{border:0;color:rgb(156,166,173)}</string>
    <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>500</x>
       <y>380</y>
       <width>261</width>
       <height>71</height>
@@ -204,7 +204,7 @@ QPushButton:hover{color:rgb(156,166,173)}</string>
    <widget class="QPushButton" name="aboutButton">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>500</x>
       <y>490</y>
       <width>261</width>
       <height>71</height>
@@ -227,7 +227,7 @@ QPushButton:hover{color:rgb(156,166,173)}</string>
    <widget class="QLabel" name="enLabel">
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>520</x>
       <y>240</y>
       <width>251</width>
       <height>51</height>
@@ -250,7 +250,7 @@ QPushButton:hover{color:rgb(156,166,173)}</string>
    <widget class="QPushButton" name="exitButton">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>500</x>
       <y>600</y>
       <width>261</width>
       <height>71</height>

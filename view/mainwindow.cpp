@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QLabel>
+#include <QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
+#include <QSequentialAnimationGroup >
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
     InitKeysWidget();
     InitLevelWidget();
     InitOptionsWidget();
+
+    ui->gainLabel->hide();
+    ui->successLabel->hide();
     setFocusPolicy(Qt::ClickFocus);
     connect(ui->MenuWidget,SIGNAL(startButtonClicked()),this,SLOT(startGame()));
     connect(ui->MenuWidget,SIGNAL(exitButtonClicked()),this,SLOT(exitGame()));
@@ -175,6 +181,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         m_player->setKeyCount(MagicTower::BLUE_KEY,m_player->getKeyCount(MagicTower::BLUE_KEY)+1);
         m_player->setKeyCount(MagicTower::YELLOW_KEY,m_player->getKeyCount(MagicTower::YELLOW_KEY)+1);
         break;
+    case Qt::Key_1:
+        gainItem("得到金币数 1   经验值 1  !");
+        break;
+    case Qt::Key_2:
+        success("得到金币数 1   经验值 1  !");
+        break;
     default:
         break;
     }
@@ -308,4 +320,45 @@ void MainWindow::startGame()
 void MainWindow::exitGame()
 {
     this->close();
+}
+void MainWindow::gainItem(QString newValue)
+{
+    ui->gainLabel->setText(newValue);
+    ui->gainLabel->show();
+    QGraphicsOpacityEffect *gainLabelOpacity = new QGraphicsOpacityEffect(this);
+    gainLabelOpacity->setOpacity(1);
+    ui->gainLabel->setGraphicsEffect(gainLabelOpacity);
+    QPropertyAnimation *ani = new QPropertyAnimation(gainLabelOpacity,"opacity");
+    ani->setDuration(1000);
+    ani->setStartValue(1);
+    ani->setEndValue(0);
+    ani->start();
+}
+void MainWindow::success(QString newValue)
+{
+    ui->gainLabel->setText(newValue);
+    ui->gainLabel->show();
+    ui->successLabel->show();
+
+    QGraphicsOpacityEffect *successLabelOpacity = new QGraphicsOpacityEffect(this);
+    successLabelOpacity->setOpacity(1);
+    ui->successLabel->setGraphicsEffect(successLabelOpacity);
+    QPropertyAnimation *ani1 = new QPropertyAnimation(successLabelOpacity,"opacity");
+    ani1->setDuration(1000);
+    ani1->setStartValue(1);
+    ani1->setEndValue(0);
+
+    QGraphicsOpacityEffect *gainLabelOpacity = new QGraphicsOpacityEffect(this);
+    gainLabelOpacity->setOpacity(0);
+    ui->gainLabel->setGraphicsEffect(gainLabelOpacity);
+    QPropertyAnimation *ani = new QPropertyAnimation(gainLabelOpacity,"opacity");
+    ani->setDuration(1000);
+    ani->setStartValue(0);
+    ani->setKeyValueAt(0.1,1);
+    ani->setEndValue(0);
+
+    QSequentialAnimationGroup *s_group=new QSequentialAnimationGroup(this);
+    s_group->addAnimation(ani1);
+    s_group->addAnimation(ani);
+    s_group->start();
 }
