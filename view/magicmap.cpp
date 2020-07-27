@@ -16,9 +16,6 @@ MagicMap::MagicMap(QWidget *parent) :
 
     flash_flag=true;
 
-    //for view test
-    m_gamemap=std::make_shared<GameMap>();
-
     m_Timer = new QTimer(this);
     connect(m_Timer,SIGNAL(timeout()),this,SLOT(shining()));
     m_Timer->start(300);
@@ -105,7 +102,6 @@ void MagicMap::paintEvent(QPaintEvent *)
     pen.setColor(QColor(204,102,0));
     pen.setWidth(5);
     painter.setPen(pen);
-   // painter.drawRect(this->rect().x(),this->rect().y(),this->rect().width()-5,this->rect().height()-5);
     painter.drawLine(0, 0, this->width() - 8, 0);
     painter.drawLine(0, 0, 0, this->height() - 8);
     painter.drawLine(this->width() - 8, 0, this->width() - 8, this->height() - 8);

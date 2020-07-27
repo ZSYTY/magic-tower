@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::MagicMenu *ui;
+    void mainLabelGraph();
 
 public slots:
     void startGame();

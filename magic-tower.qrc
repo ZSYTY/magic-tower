@@ -196,5 +196,6 @@
         <file>view/mapHash/mapHash.txt</file>
         <file>view/mapHash/mapHash_flash.txt</file>
         <file>assets/Styles/gameMenu.qss</file>
+        <file>assets/Images/mainLabel.png</file>
     </qresource>
 </RCC>

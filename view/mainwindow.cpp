@@ -26,15 +26,10 @@ void MainWindow::InitPlayerWidget()
 {
     ui->playerDataWidget->setRowCount(6);
     ui->playerDataWidget->setColumnCount(2);
-   // QIcon playerImg();
     QLabel *label = new QLabel("");
     label->setPixmap(QPixmap(":/assets/Images/415_.png").scaled(40,40));
     label->setStyleSheet("border:0;padding-left:30");
-    //ui->playerDataWidget->setItem(0,0,new QTableWidgetItem(playerImg,""));
-    if(m_player!=nullptr)
-    {
 
-    }
     ui->playerDataWidget->setCellWidget(0,0,label);
     ui->playerDataWidget->setItem(0,1,new QTableWidgetItem("1   级"));
     ui->playerDataWidget->setItem(1,0,new QTableWidgetItem("生命"));
@@ -178,9 +173,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         m_player->setKeyCount(MagicTower::RED_KEY,m_player->getKeyCount(MagicTower::RED_KEY)+1);
         m_player->setKeyCount(MagicTower::BLUE_KEY,m_player->getKeyCount(MagicTower::BLUE_KEY)+1);
         m_player->setKeyCount(MagicTower::YELLOW_KEY,m_player->getKeyCount(MagicTower::YELLOW_KEY)+1);
-        break;
-    case Qt::Key_1:
-        ui->centralwidget->hide();
         break;
     default:
         break;
