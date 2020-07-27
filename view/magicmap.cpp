@@ -111,16 +111,12 @@ void MagicMap::paintEvent(QPaintEvent *)
 void MagicMap::attachPlayer(const std::shared_ptr<Player> &player)
 {
     m_player = player;
-    /* Why to call static_cast here, see: https://asmaloney.com/2015/05/code/qsignalmapper-example-revisited/ */
-    QObject::connect(m_player.get(), &Player::positionChanged, this, static_cast<void (MagicMap::*)()>(&MagicMap::update), Qt::QueuedConnection);
-    QObject::connect(m_player.get(), &Player::directionChanged, this, static_cast<void (MagicMap::*)()>(&MagicMap::update), Qt::QueuedConnection);
     repaint();
 }
 
 void MagicMap::attachGameMap(const std::shared_ptr<GameMap>& gamemap)
 {
     m_gamemap=gamemap;
-    QObject::connect(m_gamemap.get(), &GameMap::dataChanged, this, static_cast<void (MagicMap::*)()>(&MagicMap::update), Qt::QueuedConnection);
     repaint();
 }
 

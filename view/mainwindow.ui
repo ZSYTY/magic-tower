@@ -240,6 +240,14 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'黑体';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
+    <zorder>playerDataWidget</zorder>
+    <zorder>levelDataWidget</zorder>
+    <zorder>mapWidget</zorder>
+    <zorder>keysDataWidget</zorder>
+    <zorder>optionsDataWidget</zorder>
+    <zorder>successLabel</zorder>
+    <zorder>intTextEdit</zorder>
+    <zorder>gainLabel</zorder>
    </widget>
    <widget class="MagicMenu" name="MenuWidget" native="true">
     <property name="geometry">
