@@ -2,6 +2,10 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QLabel>
+#include <QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
+#include <QSequentialAnimationGroup >
+#include <QTextCursor>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -10,10 +14,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->gameWidget->hide();
     this->setFixedSize(this->width(),this->height());
+    this->setWindowTitle("Magic Tower");
+    this->setWindowIcon(QIcon(":/assets/Images/415_.png"));
     InitPlayerWidget();
     InitKeysWidget();
     InitLevelWidget();
     InitOptionsWidget();
+
+    ui->gainLabel->hide();
+    ui->successLabel->hide();
+    ui->intTextEdit->hide();
+    ui->intTextEdit->setReadOnly(true);
     setFocusPolicy(Qt::ClickFocus);
     connect(ui->MenuWidget,SIGNAL(startButtonClicked()),this,SLOT(startGame()));
     connect(ui->MenuWidget,SIGNAL(exitButtonClicked()),this,SLOT(exitGame()));
@@ -163,7 +174,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_Right:
         m_playerMoveCommand(MagicTower::RIGHT);
         break;
-    case Qt::Key_0:   //for test: 测试人物信息绑定是否成功，以及connect是否成功
+    case Qt::Key_9:   //for test: 测试人物信息绑定是否成功，以及connect是否成功
         m_player->setLevel(m_player->getLevel()+1);
         m_player->setHealth(m_player->getHealth()+1);
         m_player->setAttack(m_player->getAttack()+1);
@@ -175,31 +186,39 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         m_player->setKeyCount(MagicTower::BLUE_KEY,m_player->getKeyCount(MagicTower::BLUE_KEY)+1);
         m_player->setKeyCount(MagicTower::YELLOW_KEY,m_player->getKeyCount(MagicTower::YELLOW_KEY)+1);
         break;
+    case Qt::Key_0:
+        m_playerChooseCommand(0);
+        break;
+    case Qt::Key_1:
+        m_playerChooseCommand(1);
+        break;
+    case Qt::Key_2:
+        m_playerChooseCommand(2);
+        break;
+    case Qt::Key_3:
+        m_playerChooseCommand(3);
+        break;
     default:
         break;
     }
 }
 
-void MainWindow::attachPlayerMoveCommand(std::function<void(MagicTower::Direction)> playerMoveCommand) {
+void MainWindow::attachPlayerMoveCommand(std::function<void(MagicTower::Direction)> playerMoveCommand)
+{
     m_playerMoveCommand = playerMoveCommand;
 }
-
-MagicMap* MainWindow::getMapWidget() const {
+void MainWindow::attachPlayerChooseCommand(std::function<void(int)> playerChooseCommand)
+{
+    m_playerChooseCommand = playerChooseCommand;
+}
+MagicMap* MainWindow::getMapWidget() const
+{
     return ui->mapWidget;
 }
 
-void MainWindow::attachPlayer(const std::shared_ptr<Player> &player) {
-
+void MainWindow::attachPlayer(const std::shared_ptr<Player> &player)
+{
     m_player = player;
-
-    QObject::connect(m_player.get(),SIGNAL(levelChanged(int)),this,SLOT(updateLevel(int)));
-    QObject::connect(m_player.get(),SIGNAL(healthChanged(int)),this,SLOT(updateHealth(int)));
-    QObject::connect(m_player.get(),SIGNAL(attackChanged(int)),this,SLOT(updateAttack(int)));
-    QObject::connect(m_player.get(),SIGNAL(defenceChanged(int)),this,SLOT(updateDefence(int)));
-    QObject::connect(m_player.get(),SIGNAL(goldChanged(int)),this,SLOT(updateGold(int)));
-    QObject::connect(m_player.get(),SIGNAL(expChanged(int)),this,SLOT(updateExp(int)));
-    QObject::connect(m_player.get(),SIGNAL(layerChanged(int)),this,SLOT(updateLayer(int)));
-    QObject::connect(m_player.get(),SIGNAL(keyCountChanged(MagicTower::KeyType, int)), this, SLOT(updateKeys(MagicTower::KeyType, int)));
 }
 
 void MainWindow::updateLevel(int newValue)
@@ -308,4 +327,55 @@ void MainWindow::startGame()
 void MainWindow::exitGame()
 {
     this->close();
+}
+void MainWindow::gainItem(QString newValue)
+{
+    ui->gainLabel->setText(newValue);
+    ui->gainLabel->show();
+    QGraphicsOpacityEffect *gainLabelOpacity = new QGraphicsOpacityEffect(this);
+    gainLabelOpacity->setOpacity(1);
+    ui->gainLabel->setGraphicsEffect(gainLabelOpacity);
+    QPropertyAnimation *ani = new QPropertyAnimation(gainLabelOpacity,"opacity");
+    ani->setDuration(1000);
+    ani->setStartValue(1);
+    ani->setEndValue(0);
+    ani->start();
+}
+void MainWindow::success(QString newValue)
+{
+    ui->gainLabel->setText(newValue);
+    ui->gainLabel->show();
+    ui->successLabel->show();
+
+    QGraphicsOpacityEffect *successLabelOpacity = new QGraphicsOpacityEffect(this);
+    successLabelOpacity->setOpacity(1);
+    ui->successLabel->setGraphicsEffect(successLabelOpacity);
+    QPropertyAnimation *ani1 = new QPropertyAnimation(successLabelOpacity,"opacity");
+    ani1->setDuration(500);
+    ani1->setStartValue(1);
+    ani1->setEndValue(0);
+
+    QGraphicsOpacityEffect *gainLabelOpacity = new QGraphicsOpacityEffect(this);
+    gainLabelOpacity->setOpacity(0);
+    ui->gainLabel->setGraphicsEffect(gainLabelOpacity);
+    QPropertyAnimation *ani = new QPropertyAnimation(gainLabelOpacity,"opacity");
+    ani->setDuration(500);
+    ani->setStartValue(0);
+    ani->setKeyValueAt(0.1,1);
+    ani->setEndValue(0);
+
+    QSequentialAnimationGroup *s_group=new QSequentialAnimationGroup(this);
+    s_group->addAnimation(ani1);
+    s_group->addAnimation(ani);
+    s_group->start();
+}
+void MainWindow::openModal(QString value)
+{
+    ui->intTextEdit->show();
+    ui->intTextEdit->setText(value);
+    ui->intTextEdit->setReadOnly(true);
+}
+void MainWindow::closeModal()
+{
+    ui->intTextEdit->hide();
 }

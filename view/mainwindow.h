@@ -20,6 +20,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void attachPlayerMoveCommand(std::function<void(MagicTower::Direction)> playerMoveCommand);
+    void attachPlayerChooseCommand(std::function<void(int)> playerChooseCommand);
     void attachPlayer(const std::shared_ptr<Player>& player);
     void keyPressEvent(QKeyEvent *event) override;
     MagicMap* getMapWidget() const;
@@ -32,6 +33,7 @@ private:
     void InitLevelWidget();
     void InitOptionsWidget();
     std::function<void(MagicTower::Direction)> m_playerMoveCommand;
+    std::function<void(int)> m_playerChooseCommand;
     std::shared_ptr<Player> m_player;
 
 public slots:
@@ -45,5 +47,9 @@ public slots:
     void updateKeys(MagicTower::KeyType,int);
     void startGame();
     void exitGame();
+    void gainItem(QString);
+    void success(QString);
+    void openModal(QString);
+    void closeModal();
 };
 #endif // MAINWINDOW_H
