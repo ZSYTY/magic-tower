@@ -94,11 +94,11 @@ void Database::loadPlayer(std::shared_ptr<Player> player, int id) {
 void Database::savePlayer(std::shared_ptr<Player> player, int id) {
     QSqlQuery query(db);
     QString itemStr = "";
-    for (int i = 0; i < itemStr.size(); i++) {
+    for (int i = 0; i < MagicTower::ITEM_TYPE_COUNT; i++) {
         itemStr += player->getItemOwn((MagicTower::ItemType)i) ? "1" : "0";
     }
     QString str = "REPLACE INTO `player` (`id`,`level`, `health`, `attack`, `defence`, `gold`, `exp`, `layer`, `position_x`, `position_y`, `direction`, `yellow_key`, `blue_key`, `red_key`, `items`) VALUES ("
-            + QString::number(id) + "'"
+            + QString::number(id) + ","
             + QString::number(player->getLevel()) + ","
             + QString::number(player->getHealth()) + ","
             + QString::number(player->getAttack()) + ","
@@ -113,7 +113,9 @@ void Database::savePlayer(std::shared_ptr<Player> player, int id) {
             + QString::number(player->getKeyCount(MagicTower::BLUE_KEY)) + ","
             + QString::number(player->getKeyCount(MagicTower::RED_KEY)) + ",'"
             + itemStr + "')";
-    query.exec(str);
+    if (! query.exec(str)) {
+        qDebug() << query.lastError();
+    }
 }
 
 void Database::loadItems() {
