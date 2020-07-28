@@ -16,6 +16,27 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
+  <widget class="QTableWidget" name="bookWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>680</width>
+     <height>680</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>黑体</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:white;
+background:black;
+border:5px solid rgb(204,102,0);</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
