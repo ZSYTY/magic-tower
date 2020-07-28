@@ -198,18 +198,18 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         m_playerMoveCommand(MagicTower::RIGHT);
         QThread::msleep(50);
         break;
-    case Qt::Key_9:   //for test: 测试人物信息绑定是否成功，以及connect是否成功
-        m_player->setLevel(m_player->getLevel()+1);
-        m_player->setHealth(m_player->getHealth()+1);
-        m_player->setAttack(m_player->getAttack()+1);
-        m_player->setDefence(m_player->getDefence()+1);
-        m_player->setGold(m_player->getGold()+1);
-        m_player->setExp(m_player->getExp()+1);
-        m_player->setLayer(m_player->getLayer()+1);
-        m_player->setKeyCount(MagicTower::RED_KEY,m_player->getKeyCount(MagicTower::RED_KEY)+1);
-        m_player->setKeyCount(MagicTower::BLUE_KEY,m_player->getKeyCount(MagicTower::BLUE_KEY)+1);
-        m_player->setKeyCount(MagicTower::YELLOW_KEY,m_player->getKeyCount(MagicTower::YELLOW_KEY)+1);
-        break;
+//    case Qt::Key_9:   //for test: 测试人物信息绑定是否成功，以及connect是否成功
+//        m_player->setLevel(m_player->getLevel()+1);
+//        m_player->setHealth(m_player->getHealth()+1);
+//        m_player->setAttack(m_player->getAttack()+1);
+//        m_player->setDefence(m_player->getDefence()+1);
+//        m_player->setGold(m_player->getGold()+1);
+//        m_player->setExp(m_player->getExp()+1);
+//        m_player->setLayer(m_player->getLayer()+1);
+//        m_player->setKeyCount(MagicTower::RED_KEY,m_player->getKeyCount(MagicTower::RED_KEY)+1);
+//        m_player->setKeyCount(MagicTower::BLUE_KEY,m_player->getKeyCount(MagicTower::BLUE_KEY)+1);
+//        m_player->setKeyCount(MagicTower::YELLOW_KEY,m_player->getKeyCount(MagicTower::YELLOW_KEY)+1);
+//        break;
     case Qt::Key_0:
         m_playerChooseCommand(0);
         break;
