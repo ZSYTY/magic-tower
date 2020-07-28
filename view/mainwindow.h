@@ -22,6 +22,10 @@ public:
     ~MainWindow();
     void attachPlayerMoveCommand(std::function<void(MagicTower::Direction)> playerMoveCommand);
     void attachPlayerChooseCommand(std::function<void(int)> playerChooseCommand);
+    void attachSaveCommand(std::function<void()> saveCommand);
+    void attachLoadCommand(std::function<void()> loadCommand);
+    void attachRestartCommand(std::function<void()> restartCommand);
+    void attachUseBookCommand(std::function<void()> useBookCommand);
     void attachPlayer(const std::shared_ptr<Player>& player);
     void keyPressEvent(QKeyEvent *event) override;
     MagicMap* getMapWidget() const;
@@ -35,6 +39,10 @@ private:
     void InitOptionsWidget();
     std::function<void(MagicTower::Direction)> m_playerMoveCommand;
     std::function<void(int)> m_playerChooseCommand;
+    std::function<void()> m_saveCommand;
+    std::function<void()> m_loadCommand;
+    std::function<void()> m_restartCommand;
+    std::function<void()> m_useBookCommand;
     std::shared_ptr<Player> m_player;
     QMediaPlayer *stepBgm;
     QMediaPlayer *beatBgm;

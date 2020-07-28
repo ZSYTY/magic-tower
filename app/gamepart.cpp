@@ -8,6 +8,10 @@ GamePart::GamePart(QObject *parent) : QObject(parent)
     m_mainWindow.attachPlayer(m_gameViewModel.getPlayer());
     m_mainWindow.getMapWidget()->attachGameMap(m_gameViewModel.getGameMap());
     m_mainWindow.attachPlayerChooseCommand(m_gameViewModel.getPlayerChooseCommand());
+    m_mainWindow.attachLoadCommand(m_gameViewModel.getLoadCommand());
+    m_mainWindow.attachRestartCommand(m_gameViewModel.getRestartCommand());
+    m_mainWindow.attachSaveCommand(m_gameViewModel.getSaveCommand());
+    m_mainWindow.attachUseBookCommand(m_gameViewModel.getUseBookCommand());
 
     connect(&m_gameModel,SIGNAL(playerWin(QString)),&m_mainWindow,SLOT(success(QString)));
     connect(&m_gameModel,SIGNAL(itemGet(QString)),&m_mainWindow,SLOT(gainItem(QString)));

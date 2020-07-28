@@ -225,6 +225,15 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_Q:
         exitGame();
         break;
+    case Qt::Key_R:
+        m_restartCommand();
+        break;
+    case Qt::Key_S:
+        m_saveCommand();
+        break;
+    case Qt::Key_A:
+        m_loadCommand();
+        break;
     default:
         break;
     }
@@ -238,6 +247,24 @@ void MainWindow::attachPlayerChooseCommand(std::function<void(int)> playerChoose
 {
     m_playerChooseCommand = playerChooseCommand;
 }
+
+void MainWindow::attachSaveCommand(std::function<void()> saveCommand)
+{
+    m_saveCommand=saveCommand;
+}
+void MainWindow::attachLoadCommand(std::function<void()> loadCommand)
+{
+    m_loadCommand=loadCommand;
+}
+void MainWindow::attachRestartCommand(std::function<void()> restartCommand)
+{
+    m_restartCommand=restartCommand;
+}
+void MainWindow::attachUseBookCommand(std::function<void()> useBookCommand)
+{
+    m_useBookCommand=useBookCommand;
+}
+
 MagicMap* MainWindow::getMapWidget() const
 {
     return ui->mapWidget;
