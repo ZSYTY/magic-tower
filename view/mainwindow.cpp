@@ -4,7 +4,7 @@
 #include <QLabel>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
-#include <QSequentialAnimationGroup >
+#include <QSequentialAnimationGroup>
 #include <QTextCursor>
 #include <QThread>
 #include <QMediaPlaylist>
