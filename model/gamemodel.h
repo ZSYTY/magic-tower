@@ -33,6 +33,20 @@ private:
     int                         meetNpc;
     bool                        isBookOpened;
 
+    void setMapData(int l, int x, int y, const QString &newValue);
+    void setHealth(int newValue);
+    void setAttack(int newValue);
+    void setDefence(int newValue);
+    void setGold(int newValue);
+    void setExp(int newValue);
+    void setLevel(int newValue);
+    void setLayer(int newValue);
+    void setKeyCount(MagicTower::KeyType keyType, int newValue);
+    void setItemOwn(MagicTower::ItemType itemType, bool newValue);
+    void setPosition(QPair<int, int> newValue);
+    void setDirection(MagicTower::Direction newValue);
+    void emitAll();
+
 signals:
     void playerWin(const QString& info);
     void itemGet(const QString& info);
@@ -40,6 +54,18 @@ signals:
     void closeModal();
     void openBook(const QVector<monster>& monsterList);
     void closeBook();
+    void mapDataChanged(int l, int x, int y, const QString &newValue);
+    void healthChanged(int newValue);
+    void attackChanged(int newValue);
+    void defenceChanged(int newValue);
+    void goldChanged(int newValue);
+    void expChanged(int newValue);
+    void levelChanged(int newValue);
+    void layerChanged(int newValue);
+    void keyCountChanged(MagicTower::KeyType keyType, int newValue);
+    void itemOwnChanged(MagicTower::ItemType itemType, bool newValue);
+    void positionChanged(QPair<int, int> newValue);
+    void directionChanged(MagicTower::Direction newValue);
 };
 
 #endif // GAMEMODEL_H

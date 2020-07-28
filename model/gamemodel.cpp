@@ -17,7 +17,7 @@ void GameModel::playerMove(MagicTower::Direction direction) {
         return;
     }
     qDebug("playerMove: %d\n", direction);
-    player->setDirection(direction);
+    setDirection(direction);
     auto position = player->getPosition(), newPosition = position;
     switch (direction) {
     case MagicTower::LEFT:
@@ -43,17 +43,17 @@ void GameModel::playerMove(MagicTower::Direction direction) {
                 willMove = true;
             } else if (type == "dn") { /* downstair */
                 willMove = true;
-                player->setLayer(player->getLayer() - 1);
+                setLayer(player->getLayer() - 1);
                 newPosition = map->findStr(player->getLayer(), "d_1");
                 qDebug() << newPosition;
             } else if (type == "up") { /* upstair */
                 willMove = true;
-                player->setLayer(player->getLayer() + 1);
+                setLayer(player->getLayer() + 1);
                 newPosition = map->findStr(player->getLayer(), "d_0");
                 qDebug() << newPosition;
             } else if (type == "wi") {
-                map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
-                player->setItemOwn(MagicTower::MONSTER_BOOK, true);
+                setMapData(player->getLayer(), newPosition.first, newPosition.second, ".");
+                setItemOwn(MagicTower::MONSTER_BOOK, true);
             }
         } else if(status.size() == 2) {
             QString &type = status[0];
@@ -63,8 +63,8 @@ void GameModel::playerMove(MagicTower::Direction direction) {
             } else if (type == "me") { /* merchant */
                 if (id == 4) {
                     if (newPosition.second == 5) {
-                        map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
-                        map->setData(player->getLayer(), newPosition.first, newPosition.second - 1, "me_4");
+                        setMapData(player->getLayer(), newPosition.first, newPosition.second, ".");
+                        setMapData(player->getLayer(), newPosition.first, newPosition.second - 1, "me_4");
                     }
                 } else if (id == 3 && player->getLayer() == 3) {
                     emit openModal("商人: 用25元换取任意一项:\n1. 增加800点生命\n2. 增加4点攻击\n3. 增加4点防御\n0. 取消");
@@ -87,39 +87,39 @@ void GameModel::playerMove(MagicTower::Direction direction) {
                 }
                 /* TODO: different merchant */
             } else if (type == "k") { /* key */
-                map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
-                player->setKeyCount((MagicTower::KeyType)id, player->getKeyCount((MagicTower::KeyType)id) + 1);
+                setMapData(player->getLayer(), newPosition.first, newPosition.second, ".");
+                setKeyCount((MagicTower::KeyType)id, player->getKeyCount((MagicTower::KeyType)id) + 1);
                 const QString colorList[MagicTower::KEY_TYPE_COUNT] = {"黄", "蓝", "红"};
                 emit itemGet("获得了" + colorList[id] + "钥匙一把");
             } else if (type == "dr") { /* door */
                 if (id < 3 && player->getKeyCount((MagicTower::KeyType)id)) {
-                    map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
-                    player->setKeyCount((MagicTower::KeyType)id, player->getKeyCount((MagicTower::KeyType)id) - 1);
+                    setMapData(player->getLayer(), newPosition.first, newPosition.second, ".");
+                    setKeyCount((MagicTower::KeyType)id, player->getKeyCount((MagicTower::KeyType)id) - 1);
                 }
             } else if (type == "m") { /* medicine */
-                map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
+                setMapData(player->getLayer(), newPosition.first, newPosition.second, ".");
                 medicine cur = database.getMedicine(id);
                 if (cur.health) {
-                    player->setHealth(player->getHealth() + cur.health);
+                    setHealth(player->getHealth() + cur.health);
                     emit itemGet("生命回复了 " + QString::number(cur.health));
                 }
                 if (cur.attack) {
-                    player->setAttack(player->getAttack() + cur.attack);
+                    setAttack(player->getAttack() + cur.attack);
                     emit itemGet("攻击上升了 " + QString::number(cur.attack));
                 }
                 if (cur.defence) {
-                    player->setDefence(player->getDefence() + cur.defence);
+                    setDefence(player->getDefence() + cur.defence);
                     emit itemGet("防御上升了 " + QString::number(cur.defence));
                 }
             } else if (type == "a") { /* armour */
-                map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
+                setMapData(player->getLayer(), newPosition.first, newPosition.second, ".");
                 armour cur = database.getArmour(id);
-                player->setDefence(player->getDefence() + cur.defence);
+                setDefence(player->getDefence() + cur.defence);
                 emit itemGet("防御上升了 " + QString::number(cur.defence));
             } else if (type == "s") { /* weapon */
-                map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
+                setMapData(player->getLayer(), newPosition.first, newPosition.second, ".");
                 weapon cur = database.getWeapon(id);
-                player->setAttack(player->getAttack() + cur.attack);
+                setAttack(player->getAttack() + cur.attack);
                 emit itemGet("攻击上升了 " + QString::number(cur.attack));
             } else if (type == "e") { /* enemy */
                 monster cur = database.getMonster(id);
@@ -129,17 +129,17 @@ void GameModel::playerMove(MagicTower::Direction direction) {
                     int roundCnt = (cur.health + damage - 1) / damage;
                     int monsterDamage = qMax(cur.attack - player->getDefence(), 0);
                     if (player->getHealth() > monsterDamage * roundCnt) { /* win */
-                        map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
-                        player->setHealth(player->getHealth() - monsterDamage * roundCnt);
-                        player->setGold(player->getGold() + cur.gold);
-                        player->setExp(player->getExp() + cur.exp);
+                        setMapData(player->getLayer(), newPosition.first, newPosition.second, ".");
+                        setHealth(player->getHealth() - monsterDamage * roundCnt);
+                        setGold(player->getGold() + cur.gold);
+                        setExp(player->getExp() + cur.exp);
                         emit playerWin("得到金币数 " + QString::number(cur.gold) + "得到经验值 " + QString::number(cur.exp));
                     }
                 }
             }
         }
         if (willMove) {
-            player->setPosition(newPosition);
+            setPosition(newPosition);
         }
     }
 }
@@ -150,14 +150,14 @@ void GameModel::playerChoose(int choice) {
         if (choice >= 0 && choice <= 3) {
             if (player->getGold() >= 25) {
                 if (choice == 1) {
-                    player->setHealth(player->getHealth() + 800);
-                    player->setGold(player->getGold() - 25);
+                    setHealth(player->getHealth() + 800);
+                    setGold(player->getGold() - 25);
                 } else if (choice == 2) {
-                    player->setAttack(player->getAttack() + 4);
-                    player->setGold(player->getGold() - 25);
+                    setAttack(player->getAttack() + 4);
+                    setGold(player->getGold() - 25);
                 } else if (choice == 3) {
-                    player->setDefence(player->getDefence() + 4);
-                    player->setGold(player->getGold() - 25);
+                    setDefence(player->getDefence() + 4);
+                    setGold(player->getGold() - 25);
                 }
             } else {
                 if (choice) {
@@ -171,24 +171,24 @@ void GameModel::playerChoose(int choice) {
         if (choice >= 0 && choice <= 3) {
             if (choice == 1) {
                 if (player->getExp() >= 100) {
-                    player->setExp(player->getExp() - 100);
-                    player->setHealth(player->getHealth() + 1000);
-                    player->setAttack(player->getAttack() + 7);
-                    player->setDefence(player->getDefence() + 7);
+                    setExp(player->getExp() - 100);
+                    setHealth(player->getHealth() + 1000);
+                    setAttack(player->getAttack() + 7);
+                    setDefence(player->getDefence() + 7);
                 } else {
                     emit itemGet("经验值不足！");
                 }
             } else if (choice == 2) {
                 if (player->getExp() >= 30) {
-                    player->setExp(player->getExp() - 30);
-                    player->setAttack(player->getAttack() + 5);
+                    setExp(player->getExp() - 30);
+                    setAttack(player->getAttack() + 5);
                 } else {
                     emit itemGet("经验值不足！");
                 }
             } else if (choice == 3) {
                 if (player->getExp() >= 30) {
-                    player->setExp(player->getExp() - 30);
-                    player->setDefence(player->getDefence() + 5);
+                    setExp(player->getExp() - 30);
+                    setDefence(player->getDefence() + 5);
                 } else {
                     emit itemGet("经验值不足！");
                 }
@@ -200,22 +200,22 @@ void GameModel::playerChoose(int choice) {
         if (choice >= 0 && choice <= 3) {
             if (choice == 1) {
                 if (player->getGold() >= 10) {
-                    player->setGold(player->getGold() - 10);
-                    player->setKeyCount((MagicTower::KeyType)0, player->getKeyCount((MagicTower::KeyType)0) + 1);
+                    setGold(player->getGold() - 10);
+                    setKeyCount((MagicTower::KeyType)0, player->getKeyCount((MagicTower::KeyType)0) + 1);
                 } else {
                     emit itemGet("金币不足！");
                 }
             } else if (choice == 2) {
                 if (player->getGold() >= 50) {
-                    player->setGold(player->getGold() - 50);
-                    player->setKeyCount((MagicTower::KeyType)1, player->getKeyCount((MagicTower::KeyType)1) + 1);
+                    setGold(player->getGold() - 50);
+                    setKeyCount((MagicTower::KeyType)1, player->getKeyCount((MagicTower::KeyType)1) + 1);
                 } else {
                     emit itemGet("金币不足！");
                 }
             } else if (choice == 3) {
                 if (player->getGold() >= 100) {
-                    player->setGold(player->getGold() - 100);
-                    player->setKeyCount((MagicTower::KeyType)2, player->getKeyCount((MagicTower::KeyType)2) + 1);
+                    setGold(player->getGold() - 100);
+                    setKeyCount((MagicTower::KeyType)2, player->getKeyCount((MagicTower::KeyType)2) + 1);
                 } else {
                     emit itemGet("金币不足！");
                 }
@@ -227,14 +227,14 @@ void GameModel::playerChoose(int choice) {
         if (choice >= 0 && choice <= 3) {
             if (player->getGold() >= 100) {
                 if (choice == 1) {
-                    player->setHealth(player->getHealth() + 4000);
-                    player->setGold(player->getGold() - 100);
+                    setHealth(player->getHealth() + 4000);
+                    setGold(player->getGold() - 100);
                 } else if (choice == 2) {
-                    player->setAttack(player->getAttack() + 20);
-                    player->setGold(player->getGold() - 100);
+                    setAttack(player->getAttack() + 20);
+                    setGold(player->getGold() - 100);
                 } else if (choice == 3) {
-                    player->setDefence(player->getDefence() + 20);
-                    player->setGold(player->getGold() - 100);
+                    setDefence(player->getDefence() + 20);
+                    setGold(player->getGold() - 100);
                 }
             } else {
                 if (choice) {
@@ -248,24 +248,24 @@ void GameModel::playerChoose(int choice) {
         if (choice >= 0 && choice <= 3) {
             if (choice == 1) {
                 if (player->getExp() >= 270) {
-                    player->setExp(player->getExp() - 270);
-                    player->setHealth(player->getHealth() + 3000);
-                    player->setAttack(player->getAttack() + 21);
-                    player->setDefence(player->getDefence() + 21);
+                    setExp(player->getExp() - 270);
+                    setHealth(player->getHealth() + 3000);
+                    setAttack(player->getAttack() + 21);
+                    setDefence(player->getDefence() + 21);
                 } else {
                     emit itemGet("经验值不足！");
                 }
             } else if (choice == 2) {
                 if (player->getExp() >= 95) {
-                    player->setExp(player->getExp() - 95);
-                    player->setAttack(player->getAttack() + 17);
+                    setExp(player->getExp() - 95);
+                    setAttack(player->getAttack() + 17);
                 } else {
                     emit itemGet("经验值不足！");
                 }
             } else if (choice == 3) {
                 if (player->getExp() >= 95) {
-                    player->setExp(player->getExp() - 95);
-                    player->setDefence(player->getDefence() + 17);
+                    setExp(player->getExp() - 95);
+                    setDefence(player->getDefence() + 17);
                 } else {
                     emit itemGet("经验值不足！");
                 }
@@ -277,22 +277,22 @@ void GameModel::playerChoose(int choice) {
         if (choice >= 0 && choice <= 3) {
             if (choice == 1) {
                 if (player->getKeyCount((MagicTower::KeyType)0)) {
-                    player->setGold(player->getGold() + 7);
-                    player->setKeyCount((MagicTower::KeyType)0, player->getKeyCount((MagicTower::KeyType)0) - 1);
+                    setGold(player->getGold() + 7);
+                    setKeyCount((MagicTower::KeyType)0, player->getKeyCount((MagicTower::KeyType)0) - 1);
                 } else {
                     emit itemGet("金币不足！");
                 }
             } else if (choice == 2) {
                 if (player->getKeyCount((MagicTower::KeyType)1)) {
-                    player->setGold(player->getGold() + 35);
-                    player->setKeyCount((MagicTower::KeyType)1, player->getKeyCount((MagicTower::KeyType)1) - 1);
+                    setGold(player->getGold() + 35);
+                    setKeyCount((MagicTower::KeyType)1, player->getKeyCount((MagicTower::KeyType)1) - 1);
                 } else {
                     emit itemGet("金币不足！");
                 }
             } else if (choice == 3) {
                 if (player->getKeyCount((MagicTower::KeyType)2)) {
-                    player->setGold(player->getGold() + 70);
-                    player->setKeyCount((MagicTower::KeyType)2, player->getKeyCount((MagicTower::KeyType)2) - 1);
+                    setGold(player->getGold() + 70);
+                    setKeyCount((MagicTower::KeyType)2, player->getKeyCount((MagicTower::KeyType)2) - 1);
                 } else {
                     emit itemGet("金币不足！");
                 }
@@ -311,6 +311,35 @@ std::shared_ptr<GameMap> GameModel::getGameMap() const{
     return map;
 }
 
+void GameModel::emitAll() {
+    for (int l = 0; l < MagicTower::MAP_LAYER; l++) {
+        for (int x = 0; x < MagicTower::MAP_HEIGHT; x++) {
+            for (int y = 0; y < MagicTower::MAP_WIDTH; y++) {
+                emit mapDataChanged(l, x, y, map->getData(l, x, y));
+            }
+        }
+    }
+
+    emit healthChanged(player->getHealth());
+    emit attackChanged(player->getAttack());
+    emit defenceChanged(player->getDefence());
+    emit goldChanged(player->getGold());
+    emit expChanged(player->getExp());
+    emit levelChanged(player->getLevel());
+    emit layerChanged(player->getLayer());
+
+    for (int i = 0; i < MagicTower::KEY_TYPE_COUNT; i++) {
+        emit keyCountChanged((MagicTower::KeyType)i, player->getKeyCount((MagicTower::KeyType)i));
+    }
+
+    for (int i = 0; i < MagicTower::ITEM_TYPE_COUNT; i++) {
+        emit itemOwnChanged((MagicTower::ItemType)i, player->getItemOwn((MagicTower::ItemType)i));
+    }
+
+    emit positionChanged(player->getPosition());
+    emit directionChanged(player->getDirection());
+}
+
 void GameModel::gameSave() {
     database.saveMap(map, 1);
     database.savePlayer(player, 1);
@@ -320,12 +349,14 @@ void GameModel::gameSave() {
 void GameModel::gameLoad() {
     database.loadMap(map, 1);
     database.loadPlayer(player, 1);
+    emitAll();
     emit itemGet("读取成功");
 }
 
 void GameModel::gameRestart() {
     database.loadMap(map);
     database.loadPlayer(player);
+    emitAll();
     emit itemGet("重新开始");
 }
 
@@ -354,3 +385,76 @@ void GameModel::useBook() {
         }
     }
 }
+
+void GameModel::setMapData(int l, int x, int y, const QString &newValue) {
+    if (map->setData(l, x, y, newValue)) {
+        emit mapDataChanged(l, x, y, newValue);
+    }
+}
+
+void GameModel::setHealth(int newValue) {
+    if (player->setHealth(newValue)) {
+        emit healthChanged(newValue);
+    }
+}
+
+void GameModel::setAttack(int newValue) {
+    if (player->setAttack(newValue)) {
+        emit attackChanged(newValue);
+    }
+}
+
+void GameModel::setDefence(int newValue) {
+    if (player->setDefence(newValue)) {
+        emit defenceChanged(newValue);
+    }
+}
+
+void GameModel::setGold(int newValue) {
+    if (player->setGold(newValue)) {
+        emit goldChanged(newValue);
+    }
+}
+
+void GameModel::setExp(int newValue) {
+    if (player->setExp(newValue)) {
+        emit expChanged(newValue);
+    }
+}
+
+void GameModel::setLevel(int newValue) {
+    if (player->setLevel(newValue)) {
+        emit levelChanged(newValue);
+    }
+}
+
+void GameModel::setLayer(int newValue) {
+    if (player->setLayer(newValue)) {
+        emit layerChanged(newValue);
+    }
+}
+
+void GameModel::setKeyCount(MagicTower::KeyType keyType, int newValue) {
+    if (player->setKeyCount(keyType, newValue)) {
+        emit keyCountChanged(keyType, newValue);
+    }
+}
+
+void GameModel::setItemOwn(MagicTower::ItemType itemType, bool newValue) {
+    if (player->setItemOwn(itemType, newValue)) {
+        emit itemOwnChanged(itemType, newValue);
+    }
+}
+
+void GameModel::setPosition(QPair<int, int> newValue) {
+    if (player->setPosition(newValue)) {
+        emit positionChanged(newValue);
+    }
+}
+
+void GameModel::setDirection(MagicTower::Direction newValue) {
+    if (player->setDirection(newValue)) {
+        emit directionChanged(newValue);
+    }
+}
+
