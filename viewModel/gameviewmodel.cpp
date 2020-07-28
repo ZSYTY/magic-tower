@@ -32,7 +32,7 @@ std::function<void()> GameViewModel::getSaveCommand() {
 
 std::function<void()> GameViewModel::getRestartCommand() {
     return [this] () {
-        return this->m_gameModel->gameLoad();
+        return this->m_gameModel->gameRestart();
     };
 }
 

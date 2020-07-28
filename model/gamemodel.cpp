@@ -330,7 +330,7 @@ void GameModel::gameRestart() {
 }
 
 void GameModel::useBook() {
-    if (player->getItemOwn(MagicTower::MONSTER_BOOK)) {
+//    if (player->getItemOwn(MagicTower::MONSTER_BOOK)) {
         if (isBookOpened) {
             isBookOpened = false;
             emit closeBook();
@@ -352,5 +352,5 @@ void GameModel::useBook() {
             }
             emit openBook(monsterList);
         }
-    }
+//    }
 }
