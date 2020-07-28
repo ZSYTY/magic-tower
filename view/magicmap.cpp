@@ -128,3 +128,16 @@ void MagicMap::shining()
         flash_flag=true;
     repaint();
 }
+void MagicMap::openBook(const QVector<monster>& monsterList)
+{
+    for(auto i=monsterList.begin();i!=monsterList.end();i++)
+    {
+        qDebug()<<i->id<<endl;
+    }
+
+}
+void MagicMap::closeBook()
+{
+    qDebug()<<"close book";
+}
+

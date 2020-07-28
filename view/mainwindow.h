@@ -65,7 +65,5 @@ public slots:
     void success(QString);
     void openModal(QString);
     void closeModal();
-    void openBook(const QVector<monster>& monsterList);
-    void closeBook();
 };
 #endif // MAINWINDOW_H

@@ -124,9 +124,14 @@ void MagicMenu::openAbout()
     bgmList->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
     aboutBgm->setPlaylist(bgmList);
     aboutBgm->play();
+    ui->menuWidget->hide();
+    ui->aboutWidget->show();
 }
 void MagicMenu::closeAbout()
 {
     aboutBgm->stop();
     menuBgm->play();
+    ui->aboutWidget->hide();
+    ui->menuWidget->show();
+
 }

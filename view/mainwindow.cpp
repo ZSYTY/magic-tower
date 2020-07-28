@@ -441,15 +441,3 @@ void MainWindow::closeModal()
 {
     ui->intTextEdit->hide();
 }
-void MainWindow::openBook(const QVector<monster>& monsterList)
-{
-    for(auto i=monsterList.begin();i!=monsterList.end();i++)
-    {
-        qDebug()<<i->id<<endl;
-    }
-
-}
-void MainWindow::closeBook()
-{
-    qDebug()<<"close book";
-}

@@ -33,10 +33,11 @@ GamePart::GamePart(QObject *parent) : QObject(parent)
 
     QObject::connect(m_gameViewModel.getGameMap().get(), &GameMap::dataChanged, m_mainWindow.getMapWidget(), static_cast<void (MagicMap::*)()>(&MagicMap::update), Qt::QueuedConnection);
 
-    connect(&m_gameModel,SIGNAL(openBook(const QVector<monster>&)),&m_mainWindow,SLOT(openBook(const QVector<monster>&)));
-    connect(&m_gameModel,SIGNAL(closeBook()),&m_mainWindow,SLOT(closeBook()));
+    connect(&m_gameModel,SIGNAL(openBook(const QVector<monster>&)),m_mainWindow.getMapWidget(),SLOT(openBook(const QVector<monster>&)));
+    connect(&m_gameModel,SIGNAL(closeBook()),m_mainWindow.getMapWidget(),SLOT(closeBook()));
 }
 
-MainWindow& GamePart::getMainWindow() {
+MainWindow& GamePart::getMainWindow()
+{
     return m_mainWindow;
 }

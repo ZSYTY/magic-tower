@@ -12,6 +12,7 @@
 #include <functional>
 #include "common/common.h"
 #include "common/player.h"
+#include "common/item.h"
 #include "common/gamemap.h"
 
 namespace Ui {
@@ -44,6 +45,8 @@ private:
 
 public slots:
     void shining();
+    void openBook(const QVector<monster>& monsterList);
+    void closeBook();
 };
 
 #endif // MAGICMAP_H
