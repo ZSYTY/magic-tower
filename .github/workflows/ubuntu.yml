@@ -41,7 +41,7 @@ jobs:
           version: ${{ matrix.qt_ver }}
           cached: ${{ steps.UbuntuCacheQt.outputs.cache-hit }}
       - name: ubuntu install GL library
-        run: sudo apt-get install -y libglew-dev libglfw3-dev --fix-missing
+        run: sudo apt-get install -y libglew-dev libglfw3-dev libglib2.0-dev libpulse-dev --fix-missing
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
