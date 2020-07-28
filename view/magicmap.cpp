@@ -145,6 +145,7 @@ void MagicMap::openBook(const QVector<monster>& monsterList)
     ui->bookWidget->setColumnWidth(2,120);
     ui->bookWidget->setColumnWidth(3,120);
     ui->bookWidget->setColumnWidth(4,120);
+    ui->bookWidget->setShowGrid(false);
     int j=0;
     for(auto i=monsterList.begin();i!=monsterList.end();i++,j++)
     {
