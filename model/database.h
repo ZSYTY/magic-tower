@@ -12,7 +12,7 @@
 #include <QHash>
 #include "common/gamemap.h"
 #include "common/player.h"
-#include "item.h"
+#include "common/item.h"
 #include <memory>
 
 class Database

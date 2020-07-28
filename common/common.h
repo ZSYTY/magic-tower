@@ -23,7 +23,7 @@ typedef enum {
 } KeyType;
 
 typedef enum {
-    /* TODO */
+    MONSTER_BOOK
 } ItemType;
 
 }; // MAGIC_TOWER
