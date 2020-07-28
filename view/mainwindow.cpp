@@ -2,6 +2,12 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QLabel>
+#include <QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
+#include <QSequentialAnimationGroup>
+#include <QTextCursor>
+#include <QThread>
+#include <QMediaPlaylist>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -10,12 +16,34 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->gameWidget->hide();
     this->setFixedSize(this->width(),this->height());
+    this->setWindowTitle("Magic Tower");
+    this->setWindowIcon(QIcon(":/assets/Images/415_.png"));
     InitPlayerWidget();
     InitKeysWidget();
     InitLevelWidget();
     InitOptionsWidget();
+
+    ui->gainLabel->hide();
+    ui->successLabel->hide();
+    ui->intTextEdit->hide();
+    ui->intTextEdit->setReadOnly(true);
+
+    stepBgm=new QMediaPlayer();
+    stepBgm->setMedia(QUrl("qrc:/assets/Sounds/step.wav"));
+    gainBgm=new QMediaPlayer();
+    gainBgm->setMedia(QUrl("qrc:/assets/Sounds/gain.wav"));
+    beatBgm=new QMediaPlayer();
+    beatBgm->setMedia(QUrl("qrc:/assets/Sounds/beat.wav"));
+
+    QMediaPlaylist *bgmList=new QMediaPlaylist();
+    bgmList->addMedia(QUrl("qrc:/assets/Sounds/map.wav"));
+    mapBgm=new QMediaPlayer();
+    bgmList->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+    mapBgm->setPlaylist(bgmList);
+
     setFocusPolicy(Qt::ClickFocus);
     connect(ui->MenuWidget,SIGNAL(startButtonClicked()),this,SLOT(startGame()));
+    connect(ui->MenuWidget,SIGNAL(exitButtonClicked()),this,SLOT(exitGame()));
 }
 
 MainWindow::~MainWindow()
@@ -26,15 +54,10 @@ void MainWindow::InitPlayerWidget()
 {
     ui->playerDataWidget->setRowCount(6);
     ui->playerDataWidget->setColumnCount(2);
-   // QIcon playerImg();
     QLabel *label = new QLabel("");
     label->setPixmap(QPixmap(":/assets/Images/415_.png").scaled(40,40));
     label->setStyleSheet("border:0;padding-left:30");
-    //ui->playerDataWidget->setItem(0,0,new QTableWidgetItem(playerImg,""));
-    if(m_player!=nullptr)
-    {
 
-    }
     ui->playerDataWidget->setCellWidget(0,0,label);
     ui->playerDataWidget->setItem(0,1,new QTableWidgetItem("1   级"));
     ui->playerDataWidget->setItem(1,0,new QTableWidgetItem("生命"));
@@ -156,18 +179,26 @@ void MainWindow::InitOptionsWidget()
 void MainWindow::keyPressEvent(QKeyEvent *event) {
     switch (event->key()) {
     case Qt::Key_Up:
+        stepBgm->play();
         m_playerMoveCommand(MagicTower::UP);
+        QThread::msleep(50);
         break;
     case Qt::Key_Down:
+        stepBgm->play();
         m_playerMoveCommand(MagicTower::DOWN);
+        QThread::msleep(50);
         break;
     case Qt::Key_Left:
+        stepBgm->play();
         m_playerMoveCommand(MagicTower::LEFT);
+        QThread::msleep(50);
         break;
     case Qt::Key_Right:
+        stepBgm->play();
         m_playerMoveCommand(MagicTower::RIGHT);
+        QThread::msleep(50);
         break;
-    case Qt::Key_0:   //for test: 测试人物信息绑定是否成功，以及connect是否成功
+    case Qt::Key_9:   //for test: 测试人物信息绑定是否成功，以及connect是否成功
         m_player->setLevel(m_player->getLevel()+1);
         m_player->setHealth(m_player->getHealth()+1);
         m_player->setAttack(m_player->getAttack()+1);
@@ -179,34 +210,72 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         m_player->setKeyCount(MagicTower::BLUE_KEY,m_player->getKeyCount(MagicTower::BLUE_KEY)+1);
         m_player->setKeyCount(MagicTower::YELLOW_KEY,m_player->getKeyCount(MagicTower::YELLOW_KEY)+1);
         break;
+    case Qt::Key_0:
+        m_playerChooseCommand(0);
+        break;
     case Qt::Key_1:
-        ui->centralwidget->hide();
+        m_playerChooseCommand(1);
+        break;
+    case Qt::Key_2:
+        m_playerChooseCommand(2);
+        break;
+    case Qt::Key_3:
+        m_playerChooseCommand(3);
+        break;
+    case Qt::Key_Q:
+        exitGame();
+        break;
+    case Qt::Key_R:
+        m_restartCommand();
+        break;
+    case Qt::Key_S:
+        m_saveCommand();
+        break;
+    case Qt::Key_A:
+        m_loadCommand();
+        break;
+    case Qt::Key_L:
+        m_useBookCommand();
         break;
     default:
         break;
     }
 }
 
-void MainWindow::attachPlayerMoveCommand(std::function<void(MagicTower::Direction)> playerMoveCommand) {
+void MainWindow::attachPlayerMoveCommand(std::function<void(MagicTower::Direction)> playerMoveCommand)
+{
     m_playerMoveCommand = playerMoveCommand;
 }
+void MainWindow::attachPlayerChooseCommand(std::function<void(int)> playerChooseCommand)
+{
+    m_playerChooseCommand = playerChooseCommand;
+}
 
-MagicMap* MainWindow::getMapWidget() const {
+void MainWindow::attachSaveCommand(std::function<void()> saveCommand)
+{
+    m_saveCommand=saveCommand;
+}
+void MainWindow::attachLoadCommand(std::function<void()> loadCommand)
+{
+    m_loadCommand=loadCommand;
+}
+void MainWindow::attachRestartCommand(std::function<void()> restartCommand)
+{
+    m_restartCommand=restartCommand;
+}
+void MainWindow::attachUseBookCommand(std::function<void()> useBookCommand)
+{
+    m_useBookCommand=useBookCommand;
+}
+
+MagicMap* MainWindow::getMapWidget() const
+{
     return ui->mapWidget;
 }
 
-void MainWindow::attachPlayer(const std::shared_ptr<Player> &player) {
-
+void MainWindow::attachPlayer(const std::shared_ptr<Player> &player)
+{
     m_player = player;
-
-    QObject::connect(m_player.get(),SIGNAL(levelChanged(int)),this,SLOT(updateLevel(int)));
-    QObject::connect(m_player.get(),SIGNAL(healthChanged(int)),this,SLOT(updateHealth(int)));
-    QObject::connect(m_player.get(),SIGNAL(attackChanged(int)),this,SLOT(updateAttack(int)));
-    QObject::connect(m_player.get(),SIGNAL(defenceChanged(int)),this,SLOT(updateDefence(int)));
-    QObject::connect(m_player.get(),SIGNAL(goldChanged(int)),this,SLOT(updateGold(int)));
-    QObject::connect(m_player.get(),SIGNAL(expChanged(int)),this,SLOT(updateExp(int)));
-    QObject::connect(m_player.get(),SIGNAL(layerChanged(int)),this,SLOT(updateLayer(int)));
-    QObject::connect(m_player.get(),SIGNAL(keyCountChanged(MagicTower::KeyType, int)), this, SLOT(updateKeys(MagicTower::KeyType, int)));
 }
 
 void MainWindow::updateLevel(int newValue)
@@ -311,4 +380,64 @@ void MainWindow::updateKeys(MagicTower::KeyType keyType,int newValue)
 void MainWindow::startGame()
 {
     ui->gameWidget->show();
+    mapBgm->setVolume(50);
+    mapBgm->play();
+}
+void MainWindow::exitGame()
+{
+    this->close();
+}
+void MainWindow::gainItem(QString newValue)
+{
+    gainBgm->play();
+    ui->gainLabel->setText(newValue);
+    ui->gainLabel->show();
+    QGraphicsOpacityEffect *gainLabelOpacity = new QGraphicsOpacityEffect(this);
+    gainLabelOpacity->setOpacity(1);
+    ui->gainLabel->setGraphicsEffect(gainLabelOpacity);
+    QPropertyAnimation *ani = new QPropertyAnimation(gainLabelOpacity,"opacity");
+    ani->setDuration(1000);
+    ani->setStartValue(1);
+    ani->setEndValue(0);
+    ani->start();
+}
+void MainWindow::success(QString newValue)
+{
+    ui->gainLabel->setText(newValue);
+    ui->gainLabel->show();
+    ui->successLabel->show();
+
+    beatBgm->play();
+
+    QGraphicsOpacityEffect *successLabelOpacity = new QGraphicsOpacityEffect(this);
+    successLabelOpacity->setOpacity(1);
+    ui->successLabel->setGraphicsEffect(successLabelOpacity);
+    QPropertyAnimation *ani1 = new QPropertyAnimation(successLabelOpacity,"opacity");
+    ani1->setDuration(500);
+    ani1->setStartValue(1);
+    ani1->setEndValue(0);
+
+    QGraphicsOpacityEffect *gainLabelOpacity = new QGraphicsOpacityEffect(this);
+    gainLabelOpacity->setOpacity(0);
+    ui->gainLabel->setGraphicsEffect(gainLabelOpacity);
+    QPropertyAnimation *ani = new QPropertyAnimation(gainLabelOpacity,"opacity");
+    ani->setDuration(500);
+    ani->setStartValue(0);
+    ani->setKeyValueAt(0.1,1);
+    ani->setEndValue(0);
+
+    QSequentialAnimationGroup *s_group=new QSequentialAnimationGroup(this);
+    s_group->addAnimation(ani1);
+    s_group->addAnimation(ani);
+    s_group->start();
+}
+void MainWindow::openModal(QString value)
+{
+    ui->intTextEdit->show();
+    ui->intTextEdit->setText(value);
+    ui->intTextEdit->setReadOnly(true);
+}
+void MainWindow::closeModal()
+{
+    ui->intTextEdit->hide();
 }

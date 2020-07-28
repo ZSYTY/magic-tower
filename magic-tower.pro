@@ -1,4 +1,4 @@
-QT       += core gui sql
+QT       += core gui sql multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -35,7 +35,7 @@ HEADERS += \
     app/gamepart.h \
     common/common.h \
     model/database.h \
-    model/item.h \
+    common/item.h \
     view/magicmap.h \
     common/gamemap.h \
     model/gamemodel.h \

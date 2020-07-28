@@ -16,9 +16,6 @@ MagicMap::MagicMap(QWidget *parent) :
 
     flash_flag=true;
 
-    //for view test
-    m_gamemap=std::make_shared<GameMap>();
-
     m_Timer = new QTimer(this);
     connect(m_Timer,SIGNAL(timeout()),this,SLOT(shining()));
     m_Timer->start(300);
@@ -105,7 +102,6 @@ void MagicMap::paintEvent(QPaintEvent *)
     pen.setColor(QColor(204,102,0));
     pen.setWidth(5);
     painter.setPen(pen);
-   // painter.drawRect(this->rect().x(),this->rect().y(),this->rect().width()-5,this->rect().height()-5);
     painter.drawLine(0, 0, this->width() - 8, 0);
     painter.drawLine(0, 0, 0, this->height() - 8);
     painter.drawLine(this->width() - 8, 0, this->width() - 8, this->height() - 8);
@@ -115,16 +111,12 @@ void MagicMap::paintEvent(QPaintEvent *)
 void MagicMap::attachPlayer(const std::shared_ptr<Player> &player)
 {
     m_player = player;
-    /* Why to call static_cast here, see: https://asmaloney.com/2015/05/code/qsignalmapper-example-revisited/ */
-    QObject::connect(m_player.get(), &Player::positionChanged, this, static_cast<void (MagicMap::*)()>(&MagicMap::update), Qt::QueuedConnection);
-    QObject::connect(m_player.get(), &Player::directionChanged, this, static_cast<void (MagicMap::*)()>(&MagicMap::update), Qt::QueuedConnection);
     repaint();
 }
 
 void MagicMap::attachGameMap(const std::shared_ptr<GameMap>& gamemap)
 {
     m_gamemap=gamemap;
-    QObject::connect(m_gamemap.get(), &GameMap::dataChanged, this, static_cast<void (MagicMap::*)()>(&MagicMap::update), Qt::QueuedConnection);
     repaint();
 }
 
@@ -136,3 +128,16 @@ void MagicMap::shining()
         flash_flag=true;
     repaint();
 }
+void MagicMap::openBook(const QVector<monster>& monsterList)
+{
+    for(auto i=monsterList.begin();i!=monsterList.end();i++)
+    {
+        qDebug()<<i->id<<endl;
+    }
+
+}
+void MagicMap::closeBook()
+{
+    qDebug()<<"close book";
+}
+

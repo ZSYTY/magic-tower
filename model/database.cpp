@@ -64,9 +64,8 @@ void Database::saveMap(std::shared_ptr<GameMap> gamemap, int id) {
         }
     }
     QSqlQuery query(db);
-    QString str = "UPDATE map SET data = '" + data + "' WHERE id = " + QString::number(id); /* TODO: INSERT */
+    QString str = "REPLACE INTO map(id, data) VALUES (" + QString::number(id) + ",'" + data + "')";
     query.exec(str);
-    query.next();
 }
 
 void Database::loadPlayer(std::shared_ptr<Player> player, int id) {
@@ -93,7 +92,30 @@ void Database::loadPlayer(std::shared_ptr<Player> player, int id) {
 }
 
 void Database::savePlayer(std::shared_ptr<Player> player, int id) {
-
+    QSqlQuery query(db);
+    QString itemStr = "";
+    for (int i = 0; i < MagicTower::ITEM_TYPE_COUNT; i++) {
+        itemStr += player->getItemOwn((MagicTower::ItemType)i) ? "1" : "0";
+    }
+    QString str = "REPLACE INTO `player` (`id`,`level`, `health`, `attack`, `defence`, `gold`, `exp`, `layer`, `position_x`, `position_y`, `direction`, `yellow_key`, `blue_key`, `red_key`, `items`) VALUES ("
+            + QString::number(id) + ","
+            + QString::number(player->getLevel()) + ","
+            + QString::number(player->getHealth()) + ","
+            + QString::number(player->getAttack()) + ","
+            + QString::number(player->getDefence()) + ","
+            + QString::number(player->getGold()) + ","
+            + QString::number(player->getExp()) + ","
+            + QString::number(player->getLayer()) + ","
+            + QString::number(player->getPosition().first) + ","
+            + QString::number(player->getPosition().second) + ","
+            + QString::number(player->getDirection()) + ","
+            + QString::number(player->getKeyCount(MagicTower::YELLOW_KEY)) + ","
+            + QString::number(player->getKeyCount(MagicTower::BLUE_KEY)) + ","
+            + QString::number(player->getKeyCount(MagicTower::RED_KEY)) + ",'"
+            + itemStr + "')";
+    if (! query.exec(str)) {
+        qDebug() << query.lastError();
+    }
 }
 
 void Database::loadItems() {
