@@ -1,6 +1,6 @@
 #include "gamemap.h"
 
-GameMap::GameMap(QObject *parent) : QObject(parent)
+GameMap::GameMap()
 {
     m_data.resize(MagicTower::MAP_LAYER);
     for (int i = 0; i < MagicTower::MAP_LAYER; i++) {
@@ -16,12 +16,12 @@ QString GameMap::getData(int l, int x, int y) const {
     return m_data[l][x][y];
 }
 
-void GameMap::setData(int l, int x, int y, const QString &newValue) {
-//    qDebug("GameMap::setData(%d, %d, %d, %s)", l, x, y, newValue.toStdString().c_str());
+bool GameMap::setData(int l, int x, int y, const QString &newValue) {
     if (m_data[l][x][y] != newValue) {
         m_data[l][x][y] = newValue;
-        emit dataChanged(l, x, y, newValue);
+        return true;
     }
+    return false;
 }
 
 QPair<int, int> GameMap::findStr(int l, QString str) {

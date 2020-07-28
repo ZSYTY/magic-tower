@@ -5,11 +5,10 @@
 #include <QObject>
 #include <QVector>
 
-class Player : public QObject
-{
-    Q_OBJECT
+class Player {
+
 public:
-    explicit Player(QObject *parent = nullptr);
+    explicit Player();
 
     /* Getters */
     int getHealth() const;
@@ -25,17 +24,17 @@ public:
     MagicTower::Direction getDirection() const;
 
     /* Setters */
-    void setHealth(int newValue);
-    void setAttack(int newValue);
-    void setDefence(int newValue);
-    void setGold(int newValue);
-    void setExp(int newValue);
-    void setLevel(int newValue);
-    void setLayer(int newValue);
-    void setKeyCount(MagicTower::KeyType keyType, int newValue);
-    void setItemOwn(MagicTower::ItemType itemType, bool newValue);
-    void setPosition(QPair<int, int> newValue);
-    void setDirection(MagicTower::Direction newValue);
+    bool setHealth(int newValue);
+    bool setAttack(int newValue);
+    bool setDefence(int newValue);
+    bool setGold(int newValue);
+    bool setExp(int newValue);
+    bool setLevel(int newValue);
+    bool setLayer(int newValue);
+    bool setKeyCount(MagicTower::KeyType keyType, int newValue);
+    bool setItemOwn(MagicTower::ItemType itemType, bool newValue);
+    bool setPosition(QPair<int, int> newValue);
+    bool setDirection(MagicTower::Direction newValue);
 
 private:
     int                     m_health;
@@ -50,18 +49,6 @@ private:
     QPair<int, int>         m_position;
     MagicTower::Direction   m_direction;
 
-signals:
-    void healthChanged(int newValue);
-    void attackChanged(int newValue);
-    void defenceChanged(int newValue);
-    void goldChanged(int newValue);
-    void expChanged(int newValue);
-    void levelChanged(int newValue);
-    void layerChanged(int newValue);
-    void keyCountChanged(MagicTower::KeyType keyType, int newValue);
-    void itemOwnChanged(MagicTower::ItemType itemType, bool newValue);
-    void positionChanged(QPair<int, int> newValue);
-    void directionChanged(MagicTower::Direction newValue);
 };
 
 #endif // PLAYER_H

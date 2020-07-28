@@ -1,13 +1,14 @@
 #include "magicmap.h"
 #include "ui_magicmap.h"
 #include <QColor>
+#include <QLabel>
 
 MagicMap::MagicMap(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MagicMap)
 {
     ui->setupUi(this);
-
+    ui->bookWidget->hide();
     QString prefix(":/assets/Images/");
     playerImageHash[MagicTower::DOWN]   = prefix + "415_.png";
     playerImageHash[MagicTower::UP]     = prefix + "485_.png";
@@ -130,14 +131,57 @@ void MagicMap::shining()
 }
 void MagicMap::openBook(const QVector<monster>& monsterList)
 {
-    for(auto i=monsterList.begin();i!=monsterList.end();i++)
+    ui->bookWidget->show();
+    int length = monsterList.size();
+    ui->bookWidget->setRowCount(length*2);
+    ui->bookWidget->setColumnCount(5);
+    ui->bookWidget->horizontalHeader()->setHidden(true);
+    ui->bookWidget->verticalHeader()->setHidden(true);
+    ui->bookWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->bookWidget->setSelectionMode(QAbstractItemView::NoSelection);
+    ui->bookWidget->setFocusPolicy(Qt::NoFocus);
+    ui->bookWidget->setColumnWidth(0,100);
+    ui->bookWidget->setColumnWidth(1,120);
+    ui->bookWidget->setColumnWidth(2,120);
+    ui->bookWidget->setColumnWidth(3,120);
+    ui->bookWidget->setColumnWidth(4,120);
+    int j=0;
+    for(auto i=monsterList.begin();i!=monsterList.end();i++,j++)
     {
-        qDebug()<<i->id<<endl;
-    }
+        QLabel *labelEny = new QLabel("");
+        QString enyKey="e_"+QString::number(i->id);
+        QString imgPath;
+        if(flash_flag)
+            imgPath=map_hash.find(enyKey).value();
+        else
+            imgPath=map_hash_flash.find(enyKey).value();
+        labelEny->setPixmap(QPixmap(imgPath).scaled(60,60));
+        labelEny->setStyleSheet("border:0;padding-left:20");
+        ui->bookWidget->setSpan(j*2,0,2,1);
+        ui->bookWidget->setCellWidget(j*2,0,labelEny);
+        ui->bookWidget->setItem(j*2,1,new QTableWidgetItem("攻击"));
+        ui->bookWidget->setItem(j*2,2,new QTableWidgetItem(QString::number(i->attack)));
+        ui->bookWidget->setItem(j*2,3,new QTableWidgetItem("金·经"));
+        ui->bookWidget->setItem(j*2,4,new QTableWidgetItem(QString::number(i->gold)+"·"+QString::number(i->exp)));
+        ui->bookWidget->setItem(j*2+1,1,new QTableWidgetItem("防御"));
+        ui->bookWidget->setItem(j*2+1,2,new QTableWidgetItem(QString::number(i->defence)));
+        ui->bookWidget->setItem(j*2+1,3,new QTableWidgetItem("生命"));
+        ui->bookWidget->setItem(j*2+1,4,new QTableWidgetItem(QString::number(i->health)));
 
+        ui->bookWidget->setRowHeight(j*2,40);
+        ui->bookWidget->setRowHeight(j*2+1,40);
+        ui->bookWidget->item(j*2,1)->setTextAlignment(Qt::AlignCenter);
+        ui->bookWidget->item(j*2,2)->setTextAlignment(Qt::AlignCenter);
+        ui->bookWidget->item(j*2,3)->setTextAlignment(Qt::AlignCenter);
+        ui->bookWidget->item(j*2,4)->setTextAlignment(Qt::AlignCenter);
+        ui->bookWidget->item(j*2+1,1)->setTextAlignment(Qt::AlignCenter);
+        ui->bookWidget->item(j*2+1,2)->setTextAlignment(Qt::AlignCenter);
+        ui->bookWidget->item(j*2+1,3)->setTextAlignment(Qt::AlignCenter);
+        ui->bookWidget->item(j*2+1,4)->setTextAlignment(Qt::AlignCenter);
+    }
 }
 void MagicMap::closeBook()
 {
-    qDebug()<<"close book";
+    ui->bookWidget->hide();
 }
 

@@ -133,5 +133,4 @@ void MagicMenu::closeAbout()
     menuBgm->play();
     ui->aboutWidget->hide();
     ui->menuWidget->show();
-
 }
