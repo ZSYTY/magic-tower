@@ -146,7 +146,7 @@ void MainWindow::InitLevelWidget()
 {
     ui->levelDataWidget->addItem("序   章");
     ui->levelDataWidget->item(0)->setTextAlignment(Qt::AlignCenter);
-    ui->levelDataWidget->item(0)->setSizeHint(QSize(50,50));
+    ui->levelDataWidget->item(0)->setSizeHint(QSize(50,60));
     ui->levelDataWidget->setSelectionMode(QAbstractItemView::NoSelection);
     ui->levelDataWidget->setFocusPolicy(Qt::NoFocus);
 }
@@ -352,7 +352,7 @@ void MainWindow::updateLayer(int newValue)
         ui->levelDataWidget->addItem(text);
     }
     ui->levelDataWidget->item(0)->setTextAlignment(Qt::AlignCenter);
-    ui->levelDataWidget->item(0)->setSizeHint(QSize(50,50));
+    ui->levelDataWidget->item(0)->setSizeHint(QSize(50,40));
 }
 
 void MainWindow::updateKeys(MagicTower::KeyType keyType,int newValue)
