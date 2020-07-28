@@ -4,7 +4,7 @@
 #include <QLabel>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
-#include <QSequentialAnimationGroup >
+#include <QSequentialAnimationGroup>
 #include <QTextCursor>
 #include <QThread>
 #include <QMediaPlaylist>
@@ -234,6 +234,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_A:
         m_loadCommand();
         break;
+    case Qt::Key_L:
+        m_useBookCommand();
+        break;
     default:
         break;
     }
@@ -437,4 +440,16 @@ void MainWindow::openModal(QString value)
 void MainWindow::closeModal()
 {
     ui->intTextEdit->hide();
+}
+void MainWindow::openBook(const QVector<monster>& monsterList)
+{
+    for(auto i=monsterList.begin();i!=monsterList.end();i++)
+    {
+        qDebug()<<i->id<<endl;
+    }
+
+}
+void MainWindow::closeBook()
+{
+    qDebug()<<"close book";
 }

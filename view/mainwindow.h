@@ -5,6 +5,7 @@
 #include "magicmap.h"
 #include "magicmenu.h"
 #include "common/player.h"
+#include "common/item.h"
 #include "view/magicmenu.h"
 #include "memory"
 #include <QMediaPlayer>
@@ -64,5 +65,7 @@ public slots:
     void success(QString);
     void openModal(QString);
     void closeModal();
+    void openBook(const QVector<monster>& monsterList);
+    void closeBook();
 };
 #endif // MAINWINDOW_H
