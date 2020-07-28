@@ -119,7 +119,7 @@ void GameModel::playerMove(MagicTower::Direction direction) {
             } else if (type == "s") { /* weapon */
                 map->setData(player->getLayer(), newPosition.first, newPosition.second, ".");
                 weapon cur = database.getWeapon(id);
-                player->setDefence(player->getDefence() + cur.attack);
+                player->setAttack(player->getAttack() + cur.attack);
                 emit itemGet("攻击上升了 " + QString::number(cur.attack));
             } else if (type == "e") { /* enemy */
                 monster cur = database.getMonster(id);
@@ -330,7 +330,7 @@ void GameModel::gameRestart() {
 }
 
 void GameModel::useBook() {
-//    if (player->getItemOwn(MagicTower::MONSTER_BOOK)) {
+    if (player->getItemOwn(MagicTower::MONSTER_BOOK)) {
         if (isBookOpened) {
             isBookOpened = false;
             emit closeBook();
@@ -352,5 +352,5 @@ void GameModel::useBook() {
             }
             emit openBook(monsterList);
         }
-//    }
+    }
 }
